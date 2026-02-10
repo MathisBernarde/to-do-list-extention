@@ -63,7 +63,7 @@ body {
 
 .app {
   margin: 0 auto;
-  padding: 1rem;
+  padding: 0.75rem;
   min-height: 100vh;
 }
 
@@ -83,16 +83,17 @@ body {
 }
 
 .header h1 {
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   font-weight: 700;
   letter-spacing: -0.02em;
   color: var(--text-primary);
+  white-space: nowrap;
 }
 
 .header-actions {
   display: flex;
   align-items: center;
-  gap: 0.25rem;
+  gap: 0.15rem;
 }
 
 .btn-icon {
@@ -191,8 +192,8 @@ body {
 }
 
 .btn-sm {
-  padding: 0.3rem 0.5rem;
-  font-size: 0.75rem;
+  padding: 0.25rem 0.4rem;
+  font-size: 0.7rem;
 }
 
 .panel {
@@ -457,7 +458,7 @@ body {
 .form-row input,
 .form-row select {
   flex: 1;
-  min-width: 90px;
+  min-width: 130px;
   padding: 0.5rem;
   border: 1px solid var(--border);
   border-radius: var(--radius-sm);
@@ -485,7 +486,12 @@ body {
 }
 
 .form-row .input-date {
-  max-width: 110px;
+  max-width: 100px;
+  min-width: 0;
+  flex: 0 0 auto;
+  padding-left: 4px;
+  padding-right: 0;
+  cursor: pointer;
 }
 
 .toolbar {
@@ -685,16 +691,17 @@ body {
   padding: 0.3rem 0.5rem;
   border-radius: 9999px;
   font-size: 0.75rem;
-  border: 1px dashed var(--border);
+  border: 1px dashed var(--accent);
   background: transparent;
-  color: var(--text-muted);
+  color: var(--accent);
   cursor: pointer;
   transition: all 0.2s;
 }
 
 .add-folder-inline:hover {
-  border-color: var(--accent);
-  color: var(--accent);
+  border-color: var(--accent-hover);
+  color: var(--accent-hover);
+  transform: translateY(-1px);
 }
 
 .add-folder-form {
