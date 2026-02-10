@@ -25,8 +25,7 @@
                 <button type="button" class="btn btn-ghost btn-sm" id="btn-import" title="Import JSON"
                     data-i18n="importData">Import</button>
                 <input type="file" id="import-file" accept=".json" style="display: none;" />
-                <!-- Internal lang select hidden/removed as per extension standard -->
-                <select id="lang-select" class="lang-select" title="Langue" style="display:none">
+                <select id="lang-select" class="lang-select" title="Langue">
                     <option value="fr">FR</option>
                     <option value="en">EN</option>
                 </select>
@@ -58,6 +57,8 @@
                     <div class="progress-bar-fill" id="progress-bar-fill" style="width: 0%"></div>
                 </div>
                 <div class="summary-stats" id="summary-stats"></div>
+                <div class="summary-stats-extra" id="summary-stats-extra"
+                    style="font-size: 0.8rem; margin-top: 0.2rem; opacity: 0.8;"></div>
                 <div class="bars-chart" id="bars-chart"></div>
             </div>
         </section>
@@ -81,9 +82,13 @@
                     <option value="" data-i18n="noFolder">Sans dossier</option>
                 </select>
                 <select id="task-priority">
-                    <option value="normal" data-i18n="priorityNormal">Priorité normale</option>
-                    <option value="high" data-i18n="priorityHigh">Haute</option>
-                    <option value="low" data-i18n="priorityLow">Basse</option>
+                    <option value="none" data-i18n="priorityNone" style="color:var(--text-secondary)">Aucune</option>
+                    <option value="critical" data-i18n="priorityCritical" style="color:var(--danger)">Critique</option>
+                    <option value="high" data-i18n="priorityHigh" style="color:#f97316">Haute</option>
+                    <option value="medium" data-i18n="priorityMedium" style="color:#eab308">Moyenne</option>
+                    <option value="normal" data-i18n="priorityNormal" style="color:#3b82f6">Normale</option>
+                    <option value="low" data-i18n="priorityLow" style="color:#22c55e">Basse</option>
+
                 </select>
                 <input type="date" id="task-due" class="input-date" />
                 <button type="submit" class="btn btn-primary" id="task-submit-btn" data-i18n="add">Ajouter</button>
@@ -91,6 +96,8 @@
             <div class="toolbar">
                 <button type="button" class="btn btn-danger-ghost" id="clear-done-btn" data-i18n="clearDone">Effacer les
                     tâches terminées</button>
+                <button type="button" class="btn btn-danger-ghost" id="empty-trash-btn" data-i18n="emptyTrash"
+                    style="display: none;">Vider la corbeille</button>
             </div>
         </section>
 
@@ -112,12 +119,19 @@
                     cours</button>
                 <button type="button" class="btn btn-ghost filter-btn" data-filter="done"
                     data-i18n="filterDone">Terminées</button>
+                <button type="button" class="btn btn-ghost filter-btn" data-filter="trash"
+                    data-i18n="filterTrash">Corbeille</button>
             </div>
             <select class="sort-select" id="sort-select">
                 <option value="newest" data-i18n="sortNewest">Plus récentes</option>
                 <option value="oldest" data-i18n="sortOldest">Plus anciennes</option>
+                <option value="priority" data-i18n="sortPriority">Priorité</option>
+                <option value="due-date" data-i18n="sortDue">Date d'échéance (Proche → Loin)</option>
+                <option value="due-date-desc" data-i18n="sortDueDesc">Date d'échéance (Loin → Proche)</option>
                 <option value="alpha" data-i18n="sortAlpha">A → Z</option>
                 <option value="alpha-desc" data-i18n="sortAlphaDesc">Z → A</option>
+                <option value="folder-alpha" data-i18n="sortFolderAlpha">Dossier (A → Z)</option>
+                <option value="folder-alpha-desc" data-i18n="sortFolderAlphaDesc">Dossier (Z → A)</option>
                 <option value="order" data-i18n="sortOrder">Ordre personnalisé</option>
             </select>
         </div>

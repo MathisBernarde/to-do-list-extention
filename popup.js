@@ -2,10 +2,11 @@
 const STORAGE_TASKS = 'todo-list-tasks';
 const STORAGE_FOLDERS = 'todo-list-folders';
 const STORAGE_THEME = 'todo-list-theme';
+const STORAGE_LANG = 'todo-list-lang';
 const DEFAULT_FOLDER_ID = '__default__';
 const FOLDER_ALL = '__all__';
 
-// DOM Elements
+// DOM
 const form = document.getElementById('task-form');
 const input = document.getElementById('task-input');
 const listEl = document.getElementById('task-list');
@@ -29,22 +30,183 @@ const barsChart = document.getElementById('bars-chart');
 const btnExport = document.getElementById('btn-export');
 const btnImport = document.getElementById('btn-import');
 const importFile = document.getElementById('import-file');
-const langSelect = document.getElementById('lang-select'); // Kept but now just redirects to settings? Or removed? 
-// Chrome Extensions handle language via browser settings, but we can keep the selector if we want to override or just remove it.
-// For now, let's hide or remove the lang selector as extensions usually use the browser locale.
-if (langSelect) langSelect.style.display = 'none';
+const langSelect = document.getElementById('lang-select');
+const emptyTrashBtn = document.getElementById('empty-trash-btn');
+const summaryStatsExtra = document.getElementById('summary-stats-extra');
+
+// Translations Object for Manual Switching
+const translations = {
+    fr: {
+        appTitle: 'Liste de tâches',
+        folders: 'Dossiers',
+        newFolder: '+ Nouveau dossier',
+        folderNamePlaceholder: 'Nom du dossier',
+        create: 'Créer',
+        cancel: 'Annuler',
+        taskPlaceholder: 'Nouvelle tâche...',
+        subtaskPlaceholder: 'Sous-tâche...',
+        dueOptional: 'Date d\'échéance (optionnel)',
+        add: 'Ajouter',
+        clearDone: 'Effacer les tâches terminées',
+        exportData: 'Export',
+        importData: 'Import',
+        searchPlaceholder: 'Rechercher...',
+        priorityCritical: 'Critique',
+        priorityHigh: 'Haute',
+        priorityMedium: 'Moyenne',
+        priorityNormal: 'Normale',
+        priorityLow: 'Basse',
+        priorityNone: 'Aucune',
+        noFolder: 'Sans dossier',
+        noFolderShort: 'Aucun',
+        addToFolder: 'Ajouter au dossier',
+        changeFolder: 'Changer de dossier',
+        editPriority: 'Modifier priorité',
+        priorityCriticalLabel: 'Critique',
+        priorityHighLabel: 'Haute',
+        priorityMediumLabel: 'Moyenne',
+        priorityNormalLabel: 'Normale',
+        priorityLowLabel: 'Basse',
+        priorityNoneLabel: 'Aucune',
+        dueLabel: 'Éch: ',
+        overdueLabel: 'En retard: ',
+        addDue: '+ Date',
+        editDue: 'Modifier date',
+        edit: '✎',
+        delete: '×',
+        reorder: 'Réorganiser',
+        addSubtasks: '+ Sous-tâches',
+        addSubtasksInput: '+ Ajouter une sous-tâche',
+        renameFolder: 'Renommer',
+        deleteFolder: 'Supprimer',
+        summaryRest: 'tâches restantes',
+        summaryDone: 'terminées',
+        summaryTotal: 'total',
+        filterAll: 'Toutes',
+        filterActive: 'En cours',
+        filterDone: 'Terminées',
+        filterTrash: 'Corbeille',
+        sortNewest: 'Plus récentes',
+        sortOldest: 'Plus anciennes',
+        sortAlpha: 'A → Z',
+        sortAlphaDesc: 'Z → A',
+        sortOrder: 'Ordre personnalisé',
+        sortPriority: 'Priorité',
+        sortDue: 'Date d\'échéance (Proche → Loin)',
+        sortDueDesc: 'Date d\'échéance (Loin → Proche)',
+        sortFolderAlpha: 'Dossier (A → Z)',
+        sortFolderAlphaDesc: 'Dossier (Z → A)',
+        emptyDefault: 'Aucune tâche dans ce dossier. Ajoutez-en une !',
+        emptyActive: 'Aucune tâche en cours.',
+        emptyDone: 'Aucune tâche terminée.',
+        emptyTrash: 'Corbeille vide.',
+        emptySearch: 'Aucun résultat trouvé.',
+        importConfirm: 'L\'importation fusionnera les données avec les existantes. Continuer ?',
+        titleTheme: 'Changer le thème',
+        titleToggleDesc: 'Ajouter/Modifier Note',
+        restore: 'Restaurer',
+        deletePermanent: 'Supprimer définitivement',
+        emptyTrash: 'Vider la corbeille',
+        statsOverdue: 'En retard',
+        statsUpcoming: 'À venir',
+        statNone: 'Aucune',
+        toggleSubDesc: 'Ajouter note',
+        addNote: '+ Note',
+        editNote: 'Note',
+    },
+    en: {
+        appTitle: 'To-Do List',
+        folders: 'Folders',
+        newFolder: '+ New Folder',
+        folderNamePlaceholder: 'Folder Name',
+        create: 'Create',
+        cancel: 'Cancel',
+        taskPlaceholder: 'New task...',
+        subtaskPlaceholder: 'Subtask...',
+        dueOptional: 'Due Date (Optional)',
+        add: 'Add',
+        clearDone: 'Clear Completed Tasks',
+        exportData: 'Export',
+        importData: 'Import',
+        searchPlaceholder: 'Search...',
+        priorityCritical: 'Critical',
+        priorityHigh: 'High',
+        priorityMedium: 'Medium',
+        priorityNormal: 'Normal',
+        priorityLow: 'Low',
+        priorityNone: 'None',
+        noFolder: 'No Folder',
+        noFolderShort: 'None',
+        addToFolder: 'Add to Folder',
+        changeFolder: 'Change Folder',
+        editPriority: 'Edit Priority',
+        priorityCriticalLabel: 'Critical',
+        priorityHighLabel: 'High',
+        priorityMediumLabel: 'Medium',
+        priorityNormalLabel: 'Normal',
+        priorityLowLabel: 'Low',
+        priorityNoneLabel: 'None',
+        dueLabel: 'Due: ',
+        overdueLabel: 'Overdue: ',
+        addDue: '+ Date',
+        editDue: 'Edit Date',
+        edit: '✎',
+        delete: '×',
+        reorder: 'Reorder',
+        addSubtasks: '+ Subtasks',
+        addSubtasksInput: '+ Add a subtask',
+        renameFolder: 'Rename',
+        deleteFolder: 'Delete',
+        summaryRest: 'tasks left',
+        summaryDone: 'completed',
+        summaryTotal: 'total',
+        filterAll: 'All',
+        filterActive: 'Active',
+        filterDone: 'Done',
+        filterTrash: 'Trash',
+        sortNewest: 'Newest',
+        sortOldest: 'Oldest',
+        sortAlpha: 'A → Z',
+        sortAlphaDesc: 'Z → A',
+        sortOrder: 'Custom Order',
+        sortPriority: 'Priority',
+        sortDue: 'Due Date (Closest)',
+        sortDueDesc: 'Due Date (Furthest)',
+        sortFolderAlpha: 'Folder (A → Z)',
+        sortFolderAlphaDesc: 'Folder (Z → A)',
+        emptyDefault: 'No tasks in this folder. Add one!',
+        emptyActive: 'No active tasks.',
+        emptyDone: 'No completed tasks.',
+        emptyTrash: 'Trash is empty.',
+        emptySearch: 'No results found.',
+        importConfirm: 'Importing will merge data with existing tasks. Continue?',
+        titleTheme: 'Toggle Theme',
+        titleToggleDesc: 'Add/Edit Note',
+        restore: 'Restore',
+        deletePermanent: 'Delete Permanently',
+        emptyTrash: 'Empty Trash',
+        statsOverdue: 'Overdue',
+        statsUpcoming: 'Upcoming',
+        statNone: 'None',
+        toggleSubDesc: 'Add Note',
+        addNote: '+ Note',
+        editNote: 'Note',
+    }
+};
+
+let currentLang = localStorage.getItem(STORAGE_LANG) || 'fr';
 
 let tasks = loadJSON(STORAGE_TASKS, []);
 let folders = loadJSON(STORAGE_FOLDERS, []);
 if (!folders.some(f => f.id === DEFAULT_FOLDER_ID)) {
-    folders.unshift({ id: DEFAULT_FOLDER_ID, name: chrome.i18n.getMessage("noFolder") });
+    folders.unshift({ id: DEFAULT_FOLDER_ID, name: t("noFolder") });
 }
 let currentFolderId = FOLDER_ALL;
 let statusFilter = 'all';
 let sortMode = 'newest';
 let dragSourceIndex = null;
 
-// Fuse.js Instance
+// Fuse Instance
 let fuse;
 const fuseOptions = {
     keys: ['text', 'subtasks.text'],
@@ -66,10 +228,12 @@ function updateFuse() {
 
 // Translation Helper
 function t(key) {
-    return chrome.i18n.getMessage(key) || key;
+    return (translations[currentLang] && translations[currentLang][key]) || key;
 }
 
 function applyTranslations() {
+    if (langSelect) langSelect.value = currentLang;
+
     document.title = t('appTitle');
     const appTitleEl = document.getElementById('app-title');
     if (appTitleEl) appTitleEl.textContent = t('appTitle');
@@ -85,15 +249,21 @@ function applyTranslations() {
     document.getElementById('task-due').title = t('dueOptional');
     document.getElementById('task-submit-btn').textContent = t('add');
     document.getElementById('clear-done-btn').textContent = t('clearDone');
+    document.getElementById('empty-trash-btn').textContent = t('emptyTrash');
     document.getElementById('btn-export').textContent = t('exportData');
     document.getElementById('btn-import').textContent = t('importData');
     document.getElementById('search-input').placeholder = t('searchPlaceholder');
 
     const taskPriority = document.getElementById('task-priority');
     if (taskPriority) {
-        taskPriority.innerHTML = `<option value="normal">${t('priorityNormal')}</option>
-                              <option value="high">${t('priorityHigh')}</option>
-                              <option value="low">${t('priorityLow')}</option>`;
+        const val = taskPriority.value;
+        taskPriority.innerHTML = `<option value="critical" style="color:var(--danger)">${t('priorityCritical')}</option>
+                              <option value="high" style="color:#f97316">${t('priorityHigh')}</option>
+                              <option value="medium" style="color:#eab308">${t('priorityMedium')}</option>
+                              <option value="normal" style="color:#3b82f6">${t('priorityNormal')}</option>
+                              <option value="low" style="color:#22c55e">${t('priorityLow')}</option>
+                              <option value="none" style="color:var(--text-secondary)">${t('priorityNone')}</option>`;
+        taskPriority.value = val;
     }
 
     document.querySelectorAll('[data-i18n]').forEach(el => {
@@ -105,6 +275,16 @@ function applyTranslations() {
         const key = opt.getAttribute('data-i18n');
         if (key) opt.textContent = t(key);
     });
+
+    renderFolders();
+    renderSummary();
+}
+
+function setLang(lang) {
+    currentLang = lang;
+    localStorage.setItem(STORAGE_LANG, lang);
+    applyTranslations();
+    render();
 }
 
 function migrateTask(tObj, i) {
@@ -112,7 +292,16 @@ function migrateTask(tObj, i) {
     if (tObj.createdAt == null) tObj.createdAt = Date.now();
     if (tObj.order == null) tObj.order = i;
     if (!tObj.priority) tObj.priority = 'normal';
+    if (tObj.priority === undefined) tObj.priority = 'none';
+
     if (!tObj.subtasks) tObj.subtasks = [];
+    if (tObj.deleted == null) tObj.deleted = false;
+    if (!tObj.description) tObj.description = '';
+    if (tObj.subtasks) {
+        tObj.subtasks.forEach(st => {
+            if (!st.description) st.description = '';
+        });
+    }
     return tObj;
 }
 tasks = tasks.map(migrateTask);
@@ -149,46 +338,89 @@ function applyTheme() {
 }
 
 function getTasksForCurrentFolder() {
-    if (currentFolderId === FOLDER_ALL || currentFolderId == null) return [...tasks];
-    if (currentFolderId === DEFAULT_FOLDER_ID || currentFolderId === '') return tasks.filter(t => !t.folderId || t.folderId === DEFAULT_FOLDER_ID);
-    return tasks.filter(t => t.folderId === currentFolderId);
+    let filtered = [...tasks];
+    if (statusFilter !== 'trash') {
+        filtered = filtered.filter(t => !t.deleted);
+    } else {
+        return tasks.filter(t => t.deleted);
+    }
+
+    if (currentFolderId === FOLDER_ALL || currentFolderId == null) return filtered;
+    if (currentFolderId === DEFAULT_FOLDER_ID || currentFolderId === '') return filtered.filter(t => !t.folderId || t.folderId === DEFAULT_FOLDER_ID);
+    return filtered.filter(t => t.folderId === currentFolderId);
 }
 
 function getDisplayedTasks() {
     let list;
-
     const q = (searchInput && searchInput.value.trim()) || '';
-    if (q && fuse) {
-        // Fuse search across ALL tasks, then filter by folder/status if needed?
-        // Usually search overrides folder view. Let's search all tasks.
-        const results = fuse.search(q);
-        list = results.map(result => result.item);
 
-        // If we want to respect current folder during search:
-        if (currentFolderId !== FOLDER_ALL) {
-            if (currentFolderId === DEFAULT_FOLDER_ID) {
-                list = list.filter(t => !t.folderId || t.folderId === DEFAULT_FOLDER_ID);
-            } else {
-                list = list.filter(t => t.folderId === currentFolderId);
-            }
+    if (statusFilter === 'trash') {
+        list = tasks.filter(t => t.deleted);
+        if (q && fuse) {
+            const results = fuse.search(q);
+            const resultIds = new Set(results.map(r => r.item.id));
+            list = list.filter(t => resultIds.has(t.id));
         }
     } else {
-        list = getTasksForCurrentFolder();
+        if (q && fuse) {
+            const results = fuse.search(q);
+            list = results.map(result => result.item).filter(t => !t.deleted);
+
+            if (currentFolderId !== FOLDER_ALL) {
+                if (currentFolderId === DEFAULT_FOLDER_ID) {
+                    list = list.filter(t => !t.folderId || t.folderId === DEFAULT_FOLDER_ID);
+                } else {
+                    list = list.filter(t => t.folderId === currentFolderId);
+                }
+            }
+        } else {
+            list = getTasksForCurrentFolder();
+        }
+
+        if (statusFilter === 'active') list = list.filter(t => !t.done);
+        if (statusFilter === 'done') list = list.filter(t => t.done);
     }
 
-    if (statusFilter === 'active') list = list.filter(t => !t.done);
-    if (statusFilter === 'done') list = list.filter(t => t.done);
+    // Sorting
+    if (!q && statusFilter !== 'trash') {
+        const pWeight = { 'critical': 6, 'high': 5, 'medium': 4, 'normal': 3, 'low': 2, 'none': 1 };
 
-    // Sorting (Fuse results are already sorted by relevance, so only sort if NOT searching or if user explicitly changes sort?)
-    // If searching, keep Fuse order unless user wants otherwise. 
-    // For simplicity, let's re-sort if q is empty, or if we want to enforce sort.
-    // Fuse returns by score. If we apply other sort, we lose relevance.
-    if (!q) {
         if (sortMode === 'newest') list = [...list].sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
         else if (sortMode === 'oldest') list = [...list].sort((a, b) => (a.createdAt || 0) - (b.createdAt || 0));
         else if (sortMode === 'alpha') list = [...list].sort((a, b) => (a.text || '').localeCompare(b.text || ''));
         else if (sortMode === 'alpha-desc') list = [...list].sort((a, b) => (b.text || '').localeCompare(a.text || ''));
         else if (sortMode === 'order') list = [...list].sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
+        else if (sortMode === 'priority') list = [...list].sort((a, b) => (pWeight[b.priority || 'none'] || 1) - (pWeight[a.priority || 'none'] || 1));
+        else if (sortMode === 'due-date') {
+            list = [...list].sort((a, b) => {
+                if (!a.dueDate && !b.dueDate) return 0;
+                if (!a.dueDate) return 1;
+                if (!b.dueDate) return -1;
+                return new Date(a.dueDate).getTime() - new Date(b.dueDate).getTime();
+            });
+        }
+        else if (sortMode === 'due-date-desc') {
+            list = [...list].sort((a, b) => {
+                if (!a.dueDate && !b.dueDate) return 0;
+                if (!a.dueDate) return 1;
+                if (!b.dueDate) return -1;
+                return new Date(b.dueDate).getTime() - new Date(a.dueDate).getTime();
+            });
+        }
+        else if (sortMode === 'folder-alpha') {
+            list = [...list].sort((a, b) => {
+                const fan = (a.folderId ? (folders.find(f => f.id === a.folderId)?.name) : '') || '';
+                const fbn = (b.folderId ? (folders.find(f => f.id === b.folderId)?.name) : '') || '';
+                return fan.localeCompare(fbn);
+            });
+        }
+        else if (sortMode === 'folder-alpha-desc') {
+            list = [...list].sort((a, b) => {
+                const fan = (a.folderId ? (folders.find(f => f.id === a.folderId)?.name) : '') || '';
+                const fbn = (b.folderId ? (folders.find(f => f.id === b.folderId)?.name) : '') || '';
+                return fbn.localeCompare(fan);
+            });
+        }
     }
 
     return list;
@@ -204,8 +436,7 @@ function formatDue(dueDate) {
     if (!dueDate) return '';
     const d = new Date(dueDate);
     if (isNaN(d.getTime())) return '';
-    // Use browser locale
-    return d.toLocaleDateString(undefined, { day: 'numeric', month: 'short', year: 'numeric' });
+    return d.toLocaleDateString(currentLang === 'fr' ? 'fr-FR' : 'en-US', { day: 'numeric', month: 'short', year: 'numeric' });
 }
 function isOverdue(dueDate) {
     if (!dueDate) return false;
@@ -221,12 +452,28 @@ function renderSummary() {
     const rest = total - done;
     const pct = total ? Math.round((done / total) * 100) : 0;
     progressBarFill.style.width = pct + '%';
-    const circumference = 2 * Math.PI * 15.9; // r=15.9 (viewbox 36) approx
-    // Actually r=15.9 -> C ~ 99.9
     donutFill.setAttribute('stroke-dasharray', 100);
     donutFill.setAttribute('stroke-dashoffset', 100 - pct);
 
     summaryStats.innerHTML = `<strong>${rest}</strong> ${t('summaryRest')} · <strong>${done}</strong> ${t('summaryDone')} · <strong>${total}</strong> ${t('summaryTotal')}`;
+
+    // Extra Stats
+    if (summaryStatsExtra) {
+        if (statusFilter === 'trash') {
+            summaryStatsExtra.innerHTML = '';
+        } else {
+            const now = new Date();
+            now.setHours(0, 0, 0, 0);
+            const overdue = list.filter(t => !t.done && t.dueDate && new Date(t.dueDate) < now).length;
+            const upcoming = list.filter(t => !t.done && t.dueDate && new Date(t.dueDate) >= now).length;
+
+            let extras = [];
+            if (overdue > 0) extras.push(`<span style="color:var(--danger)">${t('statsOverdue')}: ${overdue}</span>`);
+            if (upcoming > 0) extras.push(`<span style="color:var(--text-secondary)">${t('statsUpcoming')}: ${upcoming}</span>`);
+
+            summaryStatsExtra.innerHTML = extras.join(' · ');
+        }
+    }
 
     const folderIds = [DEFAULT_FOLDER_ID, ...folders.filter(f => f.id !== DEFAULT_FOLDER_ID).map(f => f.id)];
     const maxDone = Math.max(1, ...folderIds.map(fid => {
@@ -370,10 +617,19 @@ function renderTasks() {
     const displayed = getDisplayedTasks();
     listEl.innerHTML = '';
 
+    if (statusFilter === 'trash') {
+        clearDoneBtn.style.display = 'none';
+        if (emptyTrashBtn) emptyTrashBtn.style.display = 'inline-block';
+    } else {
+        clearDoneBtn.style.display = 'inline-block';
+        if (emptyTrashBtn) emptyTrashBtn.style.display = 'none';
+    }
+
     if (displayed.length === 0) {
         let msg = t('emptyDefault');
         if (statusFilter === 'done') msg = t('emptyDone');
         else if (statusFilter === 'active') msg = t('emptyActive');
+        else if (statusFilter === 'trash') msg = t('emptyTrash');
         if (searchInput && searchInput.value.trim()) msg = t('emptySearch');
         listEl.innerHTML = '<li class="empty-msg"><span class="icon">📋</span><br>' + msg + '</li>';
         return;
@@ -382,22 +638,53 @@ function renderTasks() {
     displayed.forEach((task, pos) => {
         const globalIndex = tasks.findIndex(t => t.id === task.id);
         if (globalIndex === -1) return;
+
         const li = document.createElement('li');
-        li.className = 'task' + (task.done ? ' done' : '');
+        li.className = 'task' + (task.done ? ' done' : '') + (task.deleted ? ' deleted' : '');
         li.dataset.taskId = task.id;
-        li.draggable = true;
+        li.draggable = !task.deleted;
+
+        if (task.deleted) {
+            li.innerHTML = `
+        <div class="task-body">
+             <div class="task-text">${escapeHtml(task.text)}</div>
+             <div class="task-meta"><small>${t('delete')}: ${new Date(task.deletedAt || Date.now()).toLocaleDateString()}</small></div>
+        </div>
+        <div class="task-actions task-actions-trash">
+             <button type="button" class="btn-icon-restore" data-id="${task.id}" title="${t('restore')}">↺</button>
+             <button type="button" class="delete-permanent" data-id="${task.id}" title="${t('deletePermanent')}">×</button>
+        </div>
+      `;
+            listEl.appendChild(li);
+
+            li.querySelector('.btn-icon-restore').addEventListener('click', () => restoreTask(task.id));
+            li.querySelector('.delete-permanent').addEventListener('click', () => permanentDeleteTask(task.id));
+            return;
+        }
+
         const folderName = task.folderId ? (folders.find(f => f.id === task.folderId)?.name || '') : '';
         const dueStr = formatDue(task.dueDate);
         const overdue = isOverdue(task.dueDate);
-        const priority = task.priority || 'normal';
+        const priority = task.priority || 'none';
+
         let metaHtml = '';
-        if (folderName) {
-            metaHtml += `<span class="task-folder-badge">${escapeHtml(folderName)} <button type="button" class="btn-edit task-change-folder" data-task-id="${escapeHtml(task.id)}" title="${escapeHtml(t('changeFolder'))}">📁</button></span>`;
-        } else {
-            metaHtml += `<span class="task-folder-badge" style="opacity: 0.6;"><button type="button" class="btn-edit task-change-folder" data-task-id="${escapeHtml(task.id)}" title="${escapeHtml(t('addToFolder'))}">📁 ${escapeHtml(t('noFolderShort'))}</button></span>`;
-        }
-        const priorityLabel = priority === 'low' ? t('priorityLowLabel') : priority === 'high' ? t('priorityHighLabel') : t('priorityNormalLabel');
-        metaHtml += `<span class="task-priority-wrap"><span class="task-priority ${priority}" data-task-id="${escapeHtml(task.id)}" title="${escapeHtml(t('editPriority'))} (${escapeHtml(priorityLabel)})"></span></span>`;
+
+        // Folder Badge
+        const folderLabel = folderName || t('noFolderShort');
+        metaHtml += `<button type="button" class="task-folder-badge" data-task-id="${escapeHtml(task.id)}" title="${escapeHtml(t('changeFolder'))}">📁 ${escapeHtml(folderLabel)}</button>`;
+
+        // Priority
+        const priorityLabels = {
+            'critical': t('priorityCriticalLabel'),
+            'high': t('priorityHighLabel'),
+            'medium': t('priorityMediumLabel'),
+            'normal': t('priorityNormalLabel'),
+            'low': t('priorityLowLabel'),
+            'none': t('priorityNoneLabel')
+        };
+
+        metaHtml += `<span class="task-priority-wrap"><span class="task-priority ${priority}" data-task-id="${escapeHtml(task.id)}" title="${escapeHtml(t('editPriority'))} (${escapeHtml(priorityLabels[priority])})"></span></span>`;
+
         if (dueStr) {
             const dueLabel = overdue ? t('overdueLabel') : t('dueLabel');
             metaHtml += `<button type="button" class="badge-due ${overdue ? 'overdue' : 'ok'}" data-task-id="${escapeHtml(task.id)}" title="${escapeHtml(t('editDue'))}">${escapeHtml(dueLabel)}${escapeHtml(dueStr)}</button>`;
@@ -405,13 +692,19 @@ function renderTasks() {
             metaHtml += `<button type="button" class="badge-due add-due" data-task-id="${escapeHtml(task.id)}" title="${escapeHtml(t('editDue'))}">${escapeHtml(t('addDue'))}</button>`;
         }
 
+        // Subtasks
         let subtasksHtml = '';
         if (task.subtasks && task.subtasks.length > 0) {
             subtasksHtml = '<div class="subtasks">';
             task.subtasks.forEach((st, si) => {
                 subtasksHtml += `<div class="subtask ${st.done ? 'done' : ''}">
           <input type="checkbox" data-task-id="${escapeHtml(task.id)}" data-sub-index="${si}" ${st.done ? 'checked' : ''} />
-          <span class="subtask-text"><span class="subtask-text-content">${escapeHtml(st.text)}</span> <button type="button" class="btn-edit subtask-edit" data-task-id="${escapeHtml(task.id)}" data-sub-index="${si}" title="${escapeHtml(t('edit'))}">✎</button></span>
+          <div class="subtask-body">
+              <span class="subtask-text"><span class="subtask-text-content">${escapeHtml(st.text)}</span> <button type="button" class="btn-edit subtask-edit" data-task-id="${escapeHtml(task.id)}" data-sub-index="${si}" title="${escapeHtml(t('edit'))}">✎</button> <button type="button" class="btn-add-note subtask-desc-toggle" data-task-id="${escapeHtml(task.id)}" data-sub-index="${si}" title="${escapeHtml(t('toggleSubDesc'))}">${st.description ? t('editNote') : t('addNote')}</button></span>
+              <div class="subtask-description-wrap ${st.description ? 'open' : ''}" id="st-desc-${task.id}-${si}">
+                  <input type="text" class="subtask-desc-input" placeholder="${t('subtaskPlaceholder')}" value="${escapeHtml(st.description)}" data-task-id="${escapeHtml(task.id)}" data-sub-index="${si}">
+              </div>
+          </div>
           <button type="button" class="subtask-delete" data-task-id="${escapeHtml(task.id)}" data-sub-index="${si}">${t('delete')}</button>
         </div>`;
             });
@@ -424,11 +717,22 @@ function renderTasks() {
             subtasksHtml = `<button type="button" class="task-toggle-sub add-sub-btn" data-task-id="${escapeHtml(task.id)}">${t('addSubtasks')}</button>`;
         }
 
+        const descriptionHtml = `
+      <div class="task-description-wrap" id="desc-wrap-${task.id}">
+        <textarea class="task-description-input" data-task-id="${task.id}" placeholder="Note...">${escapeHtml(task.description)}</textarea>
+      </div>
+    `;
+
         li.innerHTML = `
       <span class="task-drag" title="${escapeHtml(t('reorder'))}" aria-label="${escapeHtml(t('reorder'))}"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8h16M4 16h16" /></svg></span>
       <input type="checkbox" ${task.done ? 'checked' : ''} data-index="${globalIndex}" />
       <div class="task-body">
-        <div class="task-text"><span class="task-text-content">${escapeHtml(task.text)}</span> <button type="button" class="btn-edit task-edit" data-task-id="${escapeHtml(task.id)}" title="${escapeHtml(t('edit'))}">✎</button></div>
+        <div class="task-text">
+            <span class="task-text-content">${escapeHtml(task.text)}</span> 
+            <button type="button" class="btn-edit task-edit" data-task-id="${escapeHtml(task.id)}" title="${escapeHtml(t('edit'))}">✎</button>
+            <button type="button" class="btn-add-note btn-toggle-desc" data-task-id="${escapeHtml(task.id)}" title="${escapeHtml(t('titleToggleDesc'))}">${task.description ? t('editNote') : t('addNote')}</button>
+        </div>
+        ${descriptionHtml}
         <div class="task-meta">${metaHtml}</div>
         ${subtasksHtml}
       </div>
@@ -451,7 +755,7 @@ function renderTasks() {
     });
     listEl.querySelectorAll('.task-delete').forEach(btn => btn.addEventListener('click', deleteTask));
     listEl.querySelectorAll('.task-edit').forEach(btn => btn.addEventListener('click', (e) => editTask(e.target.dataset.taskId)));
-    listEl.querySelectorAll('.task-change-folder').forEach(btn => btn.addEventListener('click', (e) => showChangeFolder(e.target.dataset.taskId)));
+    listEl.querySelectorAll('.task-folder-badge').forEach(btn => btn.addEventListener('click', (e) => showChangeFolder(e.target.dataset.taskId)));
     listEl.querySelectorAll('.task-priority[data-task-id]').forEach(el => el.addEventListener('click', (e) => showChangePriority(e.target.dataset.taskId)));
     listEl.querySelectorAll('.badge-due').forEach(el => {
         el.addEventListener('click', (e) => {
@@ -465,10 +769,73 @@ function renderTasks() {
     listEl.querySelectorAll('.add-sub-btn').forEach(btn => btn.addEventListener('click', showSubtaskInput));
     listEl.querySelectorAll('.add-subtask-btn').forEach(btn => btn.addEventListener('click', addSubtask));
     listEl.querySelectorAll('.subtask-input').forEach(inp => {
+        inp.addEventListener('blur', (e) => {
+            if (!inp.value.trim()) {
+                setTimeout(() => {
+                    if (!inp.value.trim()) render();
+                }, 200);
+            }
+        });
         inp.addEventListener('keydown', (e) => {
             if (e.key === 'Enter') {
                 e.preventDefault();
                 document.querySelector('.add-subtask-btn[data-task-id="' + inp.dataset.taskId + '"]').click();
+            }
+        });
+    });
+
+    // Subtask Descriptions
+    listEl.querySelectorAll('.subtask-desc-toggle').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            const tid = btn.dataset.taskId;
+            const si = btn.dataset.subIndex;
+            const wrap = document.getElementById(`st-desc-${tid}-${si}`);
+            wrap.classList.toggle('open');
+            if (wrap.classList.contains('open')) {
+                const inp = wrap.querySelector('input');
+                if (inp) inp.focus();
+            }
+        });
+    });
+    listEl.querySelectorAll('.subtask-desc-input').forEach(inp => {
+        inp.addEventListener('change', (e) => {
+            const tid = inp.dataset.taskId;
+            const si = inp.dataset.subIndex;
+            const task = getTaskById(tid);
+            if (task && task.subtasks[si]) {
+                task.subtasks[si].description = inp.value.trim();
+                saveTasks();
+                const btn = listEl.querySelector(`.subtask-desc-toggle[data-task-id="${tid}"][data-sub-index="${si}"]`);
+                if (btn) btn.textContent = task.subtasks[si].description ? t('editNote') : t('addNote');
+            }
+        });
+    });
+
+    // Task Description Toggles
+    listEl.querySelectorAll('.btn-toggle-desc').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const id = btn.dataset.taskId;
+            const wrap = document.getElementById(`desc-wrap-${id}`);
+            if (wrap) {
+                wrap.classList.toggle('open');
+                if (wrap.classList.contains('open')) {
+                    const txt = wrap.querySelector('textarea');
+                    if (txt) txt.focus();
+                }
+            }
+        });
+    });
+    listEl.querySelectorAll('.task-description-input').forEach(txt => {
+        txt.addEventListener('change', (e) => {
+            const id = txt.dataset.taskId;
+            const val = txt.value.trim();
+            const task = getTaskById(id);
+            if (task) {
+                task.description = val;
+                saveTasks();
+                const btn = listEl.querySelector(`.btn-toggle-desc[data-task-id="${id}"]`);
+                if (btn) btn.textContent = task.description ? t('editNote') : t('addNote');
             }
         });
     });
@@ -539,10 +906,22 @@ function showSubtaskInput(e) {
     wrap.innerHTML = `<input type="text" placeholder="${escapeHtml(t('subtaskPlaceholder'))}" data-task-id="${escapeHtml(taskId)}" class="subtask-input" />
     <button type="button" class="btn btn-sm btn-ghost add-subtask-btn" data-task-id="${escapeHtml(taskId)}">${t('add')}</button>`;
     btn.replaceWith(wrap);
-    wrap.querySelector('input').focus();
+
+    const inp = wrap.querySelector('input');
+    inp.focus();
     wrap.querySelector('.add-subtask-btn').addEventListener('click', addSubtask);
-    wrap.querySelector('input').addEventListener('keydown', (e) => {
+    inp.addEventListener('keydown', (e) => {
         if (e.key === 'Enter') wrap.querySelector('.add-subtask-btn').click();
+    });
+
+    inp.addEventListener('blur', (e) => {
+        if (!inp.value.trim()) {
+            setTimeout(() => {
+                if (!inp.value.trim()) {
+                    render();
+                }
+            }, 200);
+        }
     });
 }
 
@@ -555,7 +934,7 @@ function addSubtask(e) {
     const text = inp && inp.value.trim();
     if (!text) return;
     if (!task.subtasks) task.subtasks = [];
-    task.subtasks.push({ text, done: false });
+    task.subtasks.push({ text, done: false, description: '' });
     saveTasks();
     render();
 }
@@ -612,7 +991,7 @@ function editTask(taskId) {
             finishEdit();
         } else if (e.key === 'Escape') {
             e.preventDefault();
-            isSaving = true; // Prevent blur
+            isSaving = true;
             const newTextEl = document.createElement('span');
             newTextEl.className = 'task-text-content';
             newTextEl.textContent = oldText;
@@ -668,15 +1047,22 @@ function showChangePriority(taskId) {
     if (!taskEl) return;
     const wrap = taskEl.querySelector('.task-priority-wrap');
     if (!wrap) return;
-    const currentPriority = task.priority || 'normal';
+    const currentPriority = task.priority || 'none';
     const select = document.createElement('select');
     select.className = 'task-priority-select';
-    select.innerHTML = '<option value="low"' + (currentPriority === 'low' ? ' selected' : '') + '>' + t('priorityLowLabel') + '</option><option value="normal"' + (currentPriority === 'normal' ? ' selected' : '') + '>' + t('priorityNormalLabel') + '</option><option value="high"' + (currentPriority === 'high' ? ' selected' : '') + '>' + t('priorityHighLabel') + '</option>';
+    select.innerHTML = `<option value="critical" style="color:var(--danger)">${t('priorityCritical')}</option>
+                      <option value="high" style="color:#f97316">${t('priorityHigh')}</option>
+                      <option value="medium" style="color:#eab308">${t('priorityMedium')}</option>
+                      <option value="normal" style="color:#3b82f6">${t('priorityNormal')}</option>
+                      <option value="low" style="color:#22c55e">${t('priorityLow')}</option>
+                      <option value="none" style="color:var(--text-secondary)">${t('priorityNone')}</option>`;
+    select.value = currentPriority;
+
     wrap.innerHTML = '';
     wrap.appendChild(select);
     select.focus();
     const finishChange = () => {
-        const newPriority = select.value || 'normal';
+        const newPriority = select.value || 'none';
         if (newPriority !== currentPriority) {
             task.priority = newPriority;
             saveTasks();
@@ -775,7 +1161,7 @@ function editSubtask(taskId, subIndex) {
             finishEdit();
         } else if (e.key === 'Escape') {
             e.preventDefault();
-            isSaving = true; // prevent blur
+            isSaving = true;
             const newTextEl = document.createElement('span');
             newTextEl.className = 'subtask-text-content';
             newTextEl.textContent = oldText;
@@ -812,9 +1198,39 @@ function toggleDone(e) {
 function deleteTask(e) {
     const index = parseInt(e.target.dataset.index, 10);
     if (isNaN(index) || index < 0 || index >= tasks.length) return;
-    tasks.splice(index, 1);
+    tasks[index].deleted = true;
+    tasks[index].deletedAt = Date.now();
     saveTasks();
     render();
+}
+
+function restoreTask(taskId) {
+    const task = getTaskById(taskId);
+    if (task) {
+        task.deleted = false;
+        task.deletedAt = undefined;
+        saveTasks();
+        render();
+    }
+}
+
+function permanentDeleteTask(taskId) {
+    if (!confirm('Confirmation ?')) return;
+    const idx = tasks.findIndex(t => t.id === taskId);
+    if (idx !== -1) {
+        tasks.splice(idx, 1);
+        saveTasks();
+        render();
+    }
+}
+
+if (emptyTrashBtn) {
+    emptyTrashBtn.addEventListener('click', () => {
+        if (!confirm('Vider toute la corbeille ?')) return;
+        tasks = tasks.filter(t => !t.deleted);
+        saveTasks();
+        render();
+    });
 }
 
 if (btnExport) {
@@ -866,7 +1282,8 @@ if (btnImport && importFile) {
                     data.tasks.forEach(newT => {
                         const existingIdx = tasks.findIndex(t => t.id === newT.id);
                         if (existingIdx !== -1) {
-                            tasks[existingIdx] = migrateTask(newT, 0);
+                            const merged = migrateTask(newT, 0);
+                            tasks[existingIdx] = merged;
                         } else {
                             tasks.push(migrateTask(newT, tasks.length));
                         }
@@ -887,12 +1304,14 @@ if (btnImport && importFile) {
 }
 
 function clearDoneTasks() {
-    const before = tasks.length;
-    tasks = tasks.filter(t => !t.done);
-    if (tasks.length < before) {
-        saveTasks();
-        render();
-    }
+    tasks.forEach(t => {
+        if (t.done && !t.deleted) {
+            t.deleted = true;
+            t.deletedAt = Date.now();
+        }
+    });
+    saveTasks();
+    render();
 }
 
 form.addEventListener('submit', (e) => {
@@ -900,7 +1319,7 @@ form.addEventListener('submit', (e) => {
     const text = input.value.trim();
     if (!text) return;
     const taskFolderId = folderSelect.value || null;
-    const priority = document.getElementById('task-priority').value || 'normal';
+    const priority = document.getElementById('task-priority').value || 'none';
     const due = document.getElementById('task-due').value || null;
     const newTask = {
         id: 't_' + Date.now() + '_' + Math.random().toString(36).slice(2, 8),
@@ -911,12 +1330,15 @@ form.addEventListener('submit', (e) => {
         dueDate: due || undefined,
         createdAt: Date.now(),
         order: tasks.length,
-        subtasks: []
+        subtasks: [],
+        deleted: false,
+        description: ''
     };
     tasks.push(newTask);
     saveTasks();
     input.value = '';
     document.getElementById('task-due').value = '';
+    document.getElementById('task-priority').value = 'none';
     render();
 });
 
@@ -956,6 +1378,9 @@ sortSelect.addEventListener('change', () => {
     render();
 });
 searchInput.addEventListener('input', () => render());
+if (langSelect) {
+    langSelect.addEventListener('change', () => setLang(langSelect.value));
+}
 
 applyTranslations();
 applyTheme();
