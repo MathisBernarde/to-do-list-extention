@@ -1,0 +1,163 @@
+{
+    "appTitle": {
+        "message": "Liste de tâches",
+        "description": "Le titre de l'application"
+    },
+    "appDescription": {
+        "message": "Une extension de liste de tâches simple et efficace.",
+        "description": "Description de l'extension"
+    },
+    "titleTheme": {
+        "message": "Changer le thème"
+    },
+    "summaryRest": {
+        "message": "restantes"
+    },
+    "summaryDone": {
+        "message": "terminées"
+    },
+    "summaryTotal": {
+        "message": "au total"
+    },
+    "folders": {
+        "message": "Dossiers"
+    },
+    "folderNamePlaceholder": {
+        "message": "Nom du dossier"
+    },
+    "create": {
+        "message": "Créer"
+    },
+    "cancel": {
+        "message": "Annuler"
+    },
+    "newFolder": {
+        "message": "+ Nouveau dossier"
+    },
+    "taskPlaceholder": {
+        "message": "Nouvelle tâche..."
+    },
+    "noFolder": {
+        "message": "Sans dossier"
+    },
+    "priorityNormal": {
+        "message": "Priorité normale"
+    },
+    "priorityHigh": {
+        "message": "Haute"
+    },
+    "priorityLow": {
+        "message": "Basse"
+    },
+    "dueOptional": {
+        "message": "Date d'échéance (optionnel)"
+    },
+    "add": {
+        "message": "Ajouter"
+    },
+    "clearDone": {
+        "message": "Effacer les tâches terminées"
+    },
+    "searchPlaceholder": {
+        "message": "Rechercher dans les tâches..."
+    },
+    "filterAll": {
+        "message": "Toutes"
+    },
+    "filterActive": {
+        "message": "En cours"
+    },
+    "filterDone": {
+        "message": "Terminées"
+    },
+    "sortNewest": {
+        "message": "Plus récentes"
+    },
+    "sortOldest": {
+        "message": "Plus anciennes"
+    },
+    "sortAlpha": {
+        "message": "A → Z"
+    },
+    "sortAlphaDesc": {
+        "message": "Z → A"
+    },
+    "sortOrder": {
+        "message": "Ordre personnalisé"
+    },
+    "emptyDefault": {
+        "message": "Aucune tâche ici. Ajoutez-en une ci-dessus."
+    },
+    "emptyDone": {
+        "message": "Aucune tâche terminée."
+    },
+    "emptyActive": {
+        "message": "Aucune tâche en cours."
+    },
+    "emptySearch": {
+        "message": "Aucun résultat pour cette recherche."
+    },
+    "changeFolder": {
+        "message": "Changer de dossier"
+    },
+    "addToFolder": {
+        "message": "Ajouter à un dossier"
+    },
+    "noFolderShort": {
+        "message": "Sans dossier"
+    },
+    "editPriority": {
+        "message": "Modifier la priorité"
+    },
+    "editDue": {
+        "message": "Modifier la date d'échéance"
+    },
+    "addDue": {
+        "message": "+ Échéance"
+    },
+    "subtaskPlaceholder": {
+        "message": "Sous-tâche..."
+    },
+    "delete": {
+        "message": "Supprimer"
+    },
+    "reorder": {
+        "message": "Réordonner"
+    },
+    "edit": {
+        "message": "Modifier"
+    },
+    "renameFolder": {
+        "message": "Renommer"
+    },
+    "deleteFolder": {
+        "message": "Supprimer le dossier"
+    },
+    "dueLabel": {
+        "message": "Échéance "
+    },
+    "overdueLabel": {
+        "message": "En retard "
+    },
+    "priorityLowLabel": {
+        "message": "Basse"
+    },
+    "priorityNormalLabel": {
+        "message": "Normale"
+    },
+    "priorityHighLabel": {
+        "message": "Haute"
+    },
+    "addSubtasks": {
+        "message": "+ Sous-tâches"
+    },
+    "exportData": {
+        "message": "Exporter"
+    },
+    "importData": {
+        "message": "Importer"
+    },
+    "importConfirm": {
+        "message": "Cela va fusionner les tâches importées avec les vôtres. Continuer ?"
+    }
+}

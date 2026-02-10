@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="popup.css">
+</head>
+
+<body>
+    <div class="app">
+        <header class="header">
+            <div class="header-left">
+                <h1 id="app-title" data-i18n="appTitle">To-Do List</h1>
+            </div>
+            <div class="header-actions">
+                <button type="button" class="btn btn-ghost btn-sm" id="btn-export" title="Export JSON"
+                    data-i18n="exportData">Export</button>
+                <button type="button" class="btn btn-ghost btn-sm" id="btn-import" title="Import JSON"
+                    data-i18n="importData">Import</button>
+                <input type="file" id="import-file" accept=".json" style="display: none;" />
+                <!-- Internal lang select hidden/removed as per extension standard -->
+                <select id="lang-select" class="lang-select" title="Langue" style="display:none">
+                    <option value="fr">FR</option>
+                    <option value="en">EN</option>
+                </select>
+                <button type="button" class="btn-icon" id="theme-toggle" data-i18n-title="titleTheme">
+                    <svg id="icon-sun" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor" style="display: none;">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+                    </svg>
+                    <svg id="icon-moon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                    </svg>
+                </button>
+            </div>
+        </header>
+
+        <section class="panel summary-panel" id="summary-panel">
+            <div class="summary-donut" id="summary-donut">
+                <svg viewBox="0 0 36 36">
+                    <circle class="ring-bg" cx="18" cy="18" r="15.9" fill="none" stroke-width="3" />
+                    <circle class="ring-fill" id="donut-fill" cx="18" cy="18" r="15.9" fill="none" stroke-width="3"
+                        stroke-dasharray="100 100" stroke-dashoffset="0" />
+                </svg>
+            </div>
+            <div class="summary-content">
+                <div class="progress-bar-wrap">
+                    <div class="progress-bar-fill" id="progress-bar-fill" style="width: 0%"></div>
+                </div>
+                <div class="summary-stats" id="summary-stats"></div>
+                <div class="bars-chart" id="bars-chart"></div>
+            </div>
+        </section>
+
+        <section class="folders-section panel">
+            <div class="folders-title" id="folders-title" data-i18n="folders">Dossiers</div>
+            <div class="folders-list" id="folders-list"></div>
+            <div class="add-folder-form" id="add-folder-form" style="display: none;">
+                <input type="text" id="new-folder-name" maxlength="30" />
+                <button type="button" class="btn btn-primary" id="add-folder-confirm" data-i18n="create">Créer</button>
+                <button type="button" class="btn btn-ghost" id="add-folder-cancel" data-i18n="cancel">Annuler</button>
+            </div>
+            <button type="button" class="add-folder-inline" id="add-folder-btn" data-i18n="newFolder">+ Nouveau
+                dossier</button>
+        </section>
+
+        <section class="panel">
+            <form class="form-row" id="task-form">
+                <input type="text" id="task-input" autocomplete="off" required />
+                <select id="task-folder">
+                    <option value="" data-i18n="noFolder">Sans dossier</option>
+                </select>
+                <select id="task-priority">
+                    <option value="normal" data-i18n="priorityNormal">Priorité normale</option>
+                    <option value="high" data-i18n="priorityHigh">Haute</option>
+                    <option value="low" data-i18n="priorityLow">Basse</option>
+                </select>
+                <input type="date" id="task-due" class="input-date" />
+                <button type="submit" class="btn btn-primary" id="task-submit-btn" data-i18n="add">Ajouter</button>
+            </form>
+            <div class="toolbar">
+                <button type="button" class="btn btn-danger-ghost" id="clear-done-btn" data-i18n="clearDone">Effacer les
+                    tâches terminées</button>
+            </div>
+        </section>
+
+        <div class="search-wrap">
+            <span class="search-icon" aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+            </span>
+            <input type="text" id="search-input" autocomplete="off" />
+        </div>
+
+        <div class="filters-sort">
+            <div class="filter-tabs">
+                <button type="button" class="btn btn-ghost filter-btn active" data-filter="all"
+                    data-i18n="filterAll">Toutes</button>
+                <button type="button" class="btn btn-ghost filter-btn" data-filter="active" data-i18n="filterActive">En
+                    cours</button>
+                <button type="button" class="btn btn-ghost filter-btn" data-filter="done"
+                    data-i18n="filterDone">Terminées</button>
+            </div>
+            <select class="sort-select" id="sort-select">
+                <option value="newest" data-i18n="sortNewest">Plus récentes</option>
+                <option value="oldest" data-i18n="sortOldest">Plus anciennes</option>
+                <option value="alpha" data-i18n="sortAlpha">A → Z</option>
+                <option value="alpha-desc" data-i18n="sortAlphaDesc">Z → A</option>
+                <option value="order" data-i18n="sortOrder">Ordre personnalisé</option>
+            </select>
+        </div>
+
+        <ul class="task-list" id="task-list"></ul>
+    </div>
+
+    <script src="libs/fuse.js"></script>
+    <script src="popup.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,163 @@
+{
+    "appTitle": {
+        "message": "To-Do List",
+        "description": "The title of the application"
+    },
+    "appDescription": {
+        "message": "A simple and efficient To-Do List extension.",
+        "description": "Description of the extension"
+    },
+    "titleTheme": {
+        "message": "Change theme"
+    },
+    "summaryRest": {
+        "message": "remaining"
+    },
+    "summaryDone": {
+        "message": "done"
+    },
+    "summaryTotal": {
+        "message": "total"
+    },
+    "folders": {
+        "message": "Folders"
+    },
+    "folderNamePlaceholder": {
+        "message": "Folder name"
+    },
+    "create": {
+        "message": "Create"
+    },
+    "cancel": {
+        "message": "Cancel"
+    },
+    "newFolder": {
+        "message": "+ New folder"
+    },
+    "taskPlaceholder": {
+        "message": "New task..."
+    },
+    "noFolder": {
+        "message": "No folder"
+    },
+    "priorityNormal": {
+        "message": "Normal priority"
+    },
+    "priorityHigh": {
+        "message": "High"
+    },
+    "priorityLow": {
+        "message": "Low"
+    },
+    "dueOptional": {
+        "message": "Due date (optional)"
+    },
+    "add": {
+        "message": "Add"
+    },
+    "clearDone": {
+        "message": "Clear completed tasks"
+    },
+    "searchPlaceholder": {
+        "message": "Search tasks..."
+    },
+    "filterAll": {
+        "message": "All"
+    },
+    "filterActive": {
+        "message": "In progress"
+    },
+    "filterDone": {
+        "message": "Completed"
+    },
+    "sortNewest": {
+        "message": "Newest first"
+    },
+    "sortOldest": {
+        "message": "Oldest first"
+    },
+    "sortAlpha": {
+        "message": "A → Z"
+    },
+    "sortAlphaDesc": {
+        "message": "Z → A"
+    },
+    "sortOrder": {
+        "message": "Custom order"
+    },
+    "emptyDefault": {
+        "message": "No tasks here. Add one above."
+    },
+    "emptyDone": {
+        "message": "No completed tasks."
+    },
+    "emptyActive": {
+        "message": "No tasks in progress."
+    },
+    "emptySearch": {
+        "message": "No results for this search."
+    },
+    "changeFolder": {
+        "message": "Change folder"
+    },
+    "addToFolder": {
+        "message": "Add to folder"
+    },
+    "noFolderShort": {
+        "message": "No folder"
+    },
+    "editPriority": {
+        "message": "Change priority"
+    },
+    "editDue": {
+        "message": "Change due date"
+    },
+    "addDue": {
+        "message": "+ Due date"
+    },
+    "subtaskPlaceholder": {
+        "message": "Subtask..."
+    },
+    "delete": {
+        "message": "Delete"
+    },
+    "reorder": {
+        "message": "Reorder"
+    },
+    "edit": {
+        "message": "Edit"
+    },
+    "renameFolder": {
+        "message": "Rename"
+    },
+    "deleteFolder": {
+        "message": "Delete folder"
+    },
+    "dueLabel": {
+        "message": "Due "
+    },
+    "overdueLabel": {
+        "message": "Overdue "
+    },
+    "priorityLowLabel": {
+        "message": "Low"
+    },
+    "priorityNormalLabel": {
+        "message": "Normal"
+    },
+    "priorityHighLabel": {
+        "message": "High"
+    },
+    "addSubtasks": {
+        "message": "+ Subtasks"
+    },
+    "exportData": {
+        "message": "Export"
+    },
+    "importData": {
+        "message": "Import"
+    },
+    "importConfirm": {
+        "message": "This will merge imported tasks with yours. Continue?"
+    }
+}
