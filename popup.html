@@ -20,29 +20,10 @@
                 <h1 id="app-title" data-i18n="appTitle">To-Do List</h1>
             </div>
             <div class="header-actions">
-                <button type="button" class="btn btn-ghost btn-sm" id="btn-export" title="Export JSON"
-                    data-i18n="exportData">Export</button>
-                <button type="button" class="btn btn-ghost btn-sm" id="btn-import" title="Import JSON"
-                    data-i18n="importData">Import</button>
-                <input type="file" id="import-file" accept=".json" style="display: none;" />
-                <select id="lang-select" class="lang-select" title="Langue">
-                    <option value="fr">FR</option>
-                    <option value="en">EN</option>
-                </select>
-                <button type="button" class="btn-icon" id="theme-toggle" data-i18n-title="titleTheme">
-                    <svg id="icon-sun" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                        stroke="currentColor" style="display: none;">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
-                    </svg>
-                    <svg id="icon-moon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                        stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
-                    </svg>
-                </button>
                 <button type="button" class="btn btn-ghost btn-sm" id="btn-calendar" title="Calendar"
                     data-i18n="calendar">📅 Calendar</button>
+                <button type="button" class="btn btn-ghost btn-sm" id="btn-settings" title="Settings"
+                    data-i18n-title="settings">⚙️</button>
             </div>
         </header>
 
@@ -166,6 +147,57 @@
                 <div class="calendar-day-name" data-i18n="daySun">Dim</div>
             </div>
             <div class="calendar-days" id="calendar-days"></div>
+        </div>
+
+        <div id="settings-view" style="display: none; padding: 1rem;">
+            <div class="calendar-header" style="margin-bottom: 20px;">
+                <button type="button" class="btn btn-ghost" id="settings-back">&lt;</button>
+                <h2 data-i18n="settings">Réglages</h2>
+                <div style="width: 32px;"></div> <!-- spacer -->
+            </div>
+
+            <div class="settings-group">
+                <label data-i18n="language" class="settings-label">Langue</label>
+                <select id="lang-select" class="lang-select" title="Langue"
+                    style="width: 100%; border: 1px solid var(--border); padding: 0.5rem; background: var(--bg-secondary); color: var(--text-primary); border-radius: 4px;">
+                    <option value="fr">Français (FR)</option>
+                    <option value="en">English (EN)</option>
+                </select>
+            </div>
+
+            <div class="settings-group" style="margin-top: 20px;">
+                <label data-i18n="theme" class="settings-label">Thème</label>
+                <button type="button" class="btn btn-ghost" id="theme-toggle" data-i18n-title="titleTheme"
+                    style="width: 100%; display: flex; justify-content: center; gap: 8px; border: 1px solid var(--border);">
+                    <span id="theme-icon-sun" style="display: none;">☀️ <span data-i18n="themeLight">Mode
+                            Clair</span></span>
+                    <span id="theme-icon-moon">🌙 <span data-i18n="themeDark">Mode Sombre</span></span>
+                </button>
+            </div>
+
+            <div class="settings-group" style="margin-top: 20px;">
+                <label data-i18n="data" class="settings-label">Données</label>
+                <div style="display:flex; gap:10px; width: 100%;">
+                    <button type="button" class="btn btn-ghost" id="btn-export" title="Export JSON"
+                        data-i18n="exportData" style="flex: 1; border: 1px solid var(--border);">Export</button>
+                    <button type="button" class="btn btn-ghost" id="btn-import" title="Import JSON"
+                        data-i18n="importData" style="flex: 1; border: 1px solid var(--border);">Import</button>
+                    <input type="file" id="import-file" accept=".json" style="display: none;" />
+                </div>
+            </div>
+
+            <div class="settings-footer"
+                style="margin-top: 40px; font-size: 0.85rem; color: var(--text-secondary); text-align: center;">
+                <p>Version <span id="app-version">1.2.1</span></p>
+                <p style="margin-top: 10px;">
+                    <a href="mailto:mathis.bern@gmail.com" id="contact-link"
+                        style="color: var(--accent); text-decoration: none;" data-i18n="contactMe">Contact Me</a>
+                </p>
+                <p style="margin-top: 10px;">
+                    <a href="https://buymeacoffee.com/mathisbernarde" target="_blank"
+                        style="color: #FFDD00; text-decoration: none; font-weight: bold;">☕ Buy me a coffee</a>
+                </p>
+            </div>
         </div>
     </div>
 

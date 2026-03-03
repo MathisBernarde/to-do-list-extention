@@ -1326,3 +1326,16 @@ body {
 .calendar-task.prio-none {
   border-left-color: var(--border);
 }
+
+/* Settings View styles */
+.settings-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.settings-label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}

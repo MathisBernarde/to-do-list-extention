@@ -19,8 +19,8 @@ const addFolderConfirm = document.getElementById('add-folder-confirm');
 const addFolderCancel = document.getElementById('add-folder-cancel');
 const clearDoneBtn = document.getElementById('clear-done-btn');
 const themeToggle = document.getElementById('theme-toggle');
-const iconSun = document.getElementById('icon-sun');
-const iconMoon = document.getElementById('icon-moon');
+const themeIconSun = document.getElementById('theme-icon-sun');
+const themeIconMoon = document.getElementById('theme-icon-moon');
 const searchInput = document.getElementById('search-input');
 const sortSelect = document.getElementById('sort-select');
 const progressBarFill = document.getElementById('progress-bar-fill');
@@ -41,6 +41,10 @@ const calendarNext = document.getElementById('calendar-next');
 const calendarToday = document.getElementById('calendar-today');
 const calendarMonthYear = document.getElementById('calendar-month-year');
 const calendarDays = document.getElementById('calendar-days');
+const btnSettings = document.getElementById('btn-settings');
+const settingsView = document.getElementById('settings-view');
+const settingsBack = document.getElementById('settings-back');
+let isSettingsView = false;
 
 // Translations Object for Manual Switching
 const translations = {
@@ -130,6 +134,13 @@ const translations = {
         dayFri: 'Ven',
         daySat: 'Sam',
         daySun: 'Dim',
+        settings: 'Réglages',
+        language: 'Langue',
+        theme: 'Thème',
+        themeLight: 'Mode Clair',
+        themeDark: 'Mode Sombre',
+        data: 'Données',
+        contactMe: 'Contact Me',
     },
     en: {
         appTitle: 'To-Do List',
@@ -217,6 +228,13 @@ const translations = {
         dayFri: 'Fri',
         daySat: 'Sat',
         daySun: 'Sun',
+        settings: 'Settings',
+        language: 'Language',
+        theme: 'Theme',
+        themeLight: 'Light Mode',
+        themeDark: 'Dark Mode',
+        data: 'Data',
+        contactMe: 'Contact Me',
     }
 };
 
@@ -357,8 +375,8 @@ function getTheme() {
 function setTheme(theme) {
     document.documentElement.setAttribute('data-theme', theme === 'dark' ? 'dark' : 'light');
     localStorage.setItem(STORAGE_THEME, theme);
-    iconSun.style.display = theme === 'dark' ? 'none' : 'block';
-    iconMoon.style.display = theme === 'dark' ? 'block' : 'none';
+    if (themeIconSun) themeIconSun.style.display = theme === 'dark' ? 'none' : 'block';
+    if (themeIconMoon) themeIconMoon.style.display = theme === 'dark' ? 'block' : 'none';
 }
 function applyTheme() {
     setTheme(getTheme());
@@ -1409,6 +1427,33 @@ if (langSelect) {
     langSelect.addEventListener('change', () => setLang(langSelect.value));
 }
 
+// --- Settings Logic ---
+if (btnSettings) {
+    btnSettings.addEventListener('click', () => {
+        isSettingsView = !isSettingsView;
+        if (isSettingsView) {
+            isCalendarView = false;
+            if (mainView) mainView.style.display = 'none';
+            if (calendarView) calendarView.style.display = 'none';
+            if (settingsView) settingsView.style.display = 'block';
+            applyCalendarTranslations();
+        } else {
+            if (settingsView) settingsView.style.display = 'none';
+            if (mainView) mainView.style.display = 'block';
+            render();
+        }
+    });
+}
+
+if (settingsBack) {
+    settingsBack.addEventListener('click', () => {
+        isSettingsView = false;
+        if (settingsView) settingsView.style.display = 'none';
+        if (mainView) mainView.style.display = 'block';
+        render();
+    });
+}
+
 // --- Calendar Logic ---
 let isCalendarView = false;
 let currentCalendarDate = new Date();
@@ -1425,13 +1470,15 @@ if (btnCalendar) {
     btnCalendar.addEventListener('click', () => {
         isCalendarView = !isCalendarView;
         if (isCalendarView) {
-            mainView.style.display = 'none';
-            calendarView.style.display = 'block';
+            isSettingsView = false;
+            if (settingsView) settingsView.style.display = 'none';
+            if (mainView) mainView.style.display = 'none';
+            if (calendarView) calendarView.style.display = 'block';
             currentCalendarDate = new Date();
             renderCalendar();
         } else {
-            calendarView.style.display = 'none';
-            mainView.style.display = 'block';
+            if (calendarView) calendarView.style.display = 'none';
+            if (mainView) mainView.style.display = 'block';
             render();
         }
         applyCalendarTranslations();
