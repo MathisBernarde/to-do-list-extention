@@ -1209,3 +1209,120 @@ body {
   border-color: var(--accent);
   color: var(--text-primary);
 }
+
+/* Calendar View styles */
+#calendar-view {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.calendar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.calendar-header h2 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+  text-align: center;
+}
+
+.calendar-day-name {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  padding-bottom: 0.5rem;
+}
+
+.calendar-days {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+}
+
+.calendar-day {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  min-height: 80px;
+  padding: 0.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.calendar-day.other-month {
+  opacity: 0.4;
+}
+
+.calendar-day.today {
+  border-color: var(--accent);
+  background: var(--bg-hover);
+}
+
+.calendar-day-number {
+  font-size: 0.75rem;
+  font-weight: 600;
+  align-self: flex-end;
+  color: var(--text-secondary);
+}
+
+.calendar-day.today .calendar-day-number {
+  color: var(--accent);
+}
+
+.calendar-task {
+  font-size: 0.65rem;
+  padding: 0.15rem 0.25rem;
+  border-radius: 4px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  cursor: pointer;
+  background: var(--bg-secondary);
+  border-left: 3px solid transparent;
+  color: var(--text-primary);
+}
+
+.calendar-task.done {
+  text-decoration: line-through;
+  opacity: 0.6;
+}
+
+.calendar-task:hover {
+  filter: brightness(1.2);
+}
+
+.calendar-task.prio-critical {
+  border-left-color: var(--danger);
+}
+
+.calendar-task.prio-high {
+  border-left-color: #f97316;
+}
+
+.calendar-task.prio-medium {
+  border-left-color: #eab308;
+}
+
+.calendar-task.prio-normal {
+  border-left-color: #3b82f6;
+}
+
+.calendar-task.prio-low {
+  border-left-color: #22c55e;
+}
+
+.calendar-task.prio-none {
+  border-left-color: var(--border);
+}

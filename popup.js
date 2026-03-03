@@ -33,6 +33,14 @@ const importFile = document.getElementById('import-file');
 const langSelect = document.getElementById('lang-select');
 const emptyTrashBtn = document.getElementById('empty-trash-btn');
 const summaryStatsExtra = document.getElementById('summary-stats-extra');
+const btnCalendar = document.getElementById('btn-calendar');
+const mainView = document.getElementById('main-view');
+const calendarView = document.getElementById('calendar-view');
+const calendarPrev = document.getElementById('calendar-prev');
+const calendarNext = document.getElementById('calendar-next');
+const calendarToday = document.getElementById('calendar-today');
+const calendarMonthYear = document.getElementById('calendar-month-year');
+const calendarDays = document.getElementById('calendar-days');
 
 // Translations Object for Manual Switching
 const translations = {
@@ -113,6 +121,15 @@ const translations = {
         toggleSubDesc: 'Ajouter note',
         addNote: '+ Note',
         editNote: 'Note',
+        calendar: 'Calendrier',
+        today: 'Aujourd\'hui',
+        dayMon: 'Lun',
+        dayTue: 'Mar',
+        dayWed: 'Mer',
+        dayThu: 'Jeu',
+        dayFri: 'Ven',
+        daySat: 'Sam',
+        daySun: 'Dim',
     },
     en: {
         appTitle: 'To-Do List',
@@ -191,6 +208,15 @@ const translations = {
         toggleSubDesc: 'Add Note',
         addNote: '+ Note',
         editNote: 'Note',
+        calendar: 'Calendar',
+        today: 'Today',
+        dayMon: 'Mon',
+        dayTue: 'Tue',
+        dayWed: 'Wed',
+        dayThu: 'Thu',
+        dayFri: 'Fri',
+        daySat: 'Sat',
+        daySun: 'Sun',
     }
 };
 
@@ -278,6 +304,7 @@ function applyTranslations() {
 
     renderFolders();
     renderSummary();
+    if (typeof applyCalendarTranslations === 'function') applyCalendarTranslations();
 }
 
 function setLang(lang) {
@@ -1382,6 +1409,173 @@ if (langSelect) {
     langSelect.addEventListener('change', () => setLang(langSelect.value));
 }
 
+// --- Calendar Logic ---
+let isCalendarView = false;
+let currentCalendarDate = new Date();
+
+function applyCalendarTranslations() {
+    if (btnCalendar) {
+        btnCalendar.textContent = isCalendarView ? '← ' + t('appTitle') : '📅 ' + t('calendar');
+        btnCalendar.title = t('calendar');
+        btnCalendar.removeAttribute('data-i18n'); // prevent default translation override
+    }
+}
+
+if (btnCalendar) {
+    btnCalendar.addEventListener('click', () => {
+        isCalendarView = !isCalendarView;
+        if (isCalendarView) {
+            mainView.style.display = 'none';
+            calendarView.style.display = 'block';
+            currentCalendarDate = new Date();
+            renderCalendar();
+        } else {
+            calendarView.style.display = 'none';
+            mainView.style.display = 'block';
+            render();
+        }
+        applyCalendarTranslations();
+    });
+}
+
+if (calendarPrev) {
+    calendarPrev.addEventListener('click', () => {
+        currentCalendarDate.setMonth(currentCalendarDate.getMonth() - 1);
+        renderCalendar();
+    });
+}
+
+if (calendarNext) {
+    calendarNext.addEventListener('click', () => {
+        currentCalendarDate.setMonth(currentCalendarDate.getMonth() + 1);
+        renderCalendar();
+    });
+}
+
+if (calendarToday) {
+    calendarToday.addEventListener('click', () => {
+        currentCalendarDate = new Date();
+        renderCalendar();
+    });
+}
+
+function renderCalendar() {
+    if (!calendarView || !isCalendarView) return;
+
+    const year = currentCalendarDate.getFullYear();
+    const month = currentCalendarDate.getMonth();
+
+    // Set Header Title (e.g. "Mars 2026")
+    const dtf = new Intl.DateTimeFormat(currentLang === 'fr' ? 'fr-FR' : 'en-US', { month: 'long', year: 'numeric' });
+    const monthYearStr = dtf.format(new Date(year, month, 1));
+    if (calendarMonthYear) calendarMonthYear.textContent = monthYearStr.charAt(0).toUpperCase() + monthYearStr.slice(1);
+
+    // Calculate days
+    const firstDay = new Date(year, month, 1).getDay(); // 0 is Sunday
+    const daysInMonth = new Date(year, month + 1, 0).getDate();
+    const daysInPrevMonth = new Date(year, month, 0).getDate();
+
+    // Adjust to Monday = 0 index
+    const startDayIndex = (firstDay === 0 ? 7 : firstDay) - 1;
+
+    let html = '';
+
+    const today = new Date();
+    const isCurrentMonth = today.getFullYear() === year && today.getMonth() === month;
+    const currentDay = today.getDate();
+
+    // Previous month's trailing days
+    for (let i = startDayIndex - 1; i >= 0; i--) {
+        const d = daysInPrevMonth - i;
+        html += `<div class="calendar-day other-month">
+            <span class="calendar-day-number">${d}</span>
+            <div class="calendar-day-tasks"></div>
+        </div>`;
+    }
+
+    // Days with tasks
+    const pWeight = { 'critical': 6, 'high': 5, 'medium': 4, 'normal': 3, 'low': 2, 'none': 1 };
+
+    // Build map of tasks per day string yyyy-mm-dd
+    const tasksByDay = {};
+    const allTasks = tasks.filter(t => !t.deleted && t.dueDate);
+    allTasks.forEach(t => {
+        try {
+            const td = new Date(t.dueDate);
+            if (!isNaN(td.getTime())) {
+                const dayStr = td.toISOString().slice(0, 10);
+                if (!tasksByDay[dayStr]) tasksByDay[dayStr] = [];
+                tasksByDay[dayStr].push(t);
+            }
+        } catch (e) { }
+    });
+
+    // Current month days
+    for (let d = 1; d <= daysInMonth; d++) {
+        const isToday = isCurrentMonth && d === currentDay;
+        const classes = 'calendar-day' + (isToday ? ' today' : '');
+        const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
+
+        let dayTasksHtml = '';
+        if (tasksByDay[dateStr]) {
+            // Sort by priority initially based on pWeight
+            tasksByDay[dateStr].sort((a, b) => (pWeight[b.priority || 'none'] || 1) - (pWeight[a.priority || 'none'] || 1));
+
+            tasksByDay[dateStr].forEach(t => {
+                const prio = t.priority || 'none';
+                dayTasksHtml += `<div class="calendar-task prio-${prio} ${t.done ? 'done' : ''}" data-task-id="${escapeHtml(t.id)}" title="${escapeHtml(t.text)}">${escapeHtml(t.text)}</div>`;
+            });
+        }
+
+        html += `<div class="${classes}">
+            <span class="calendar-day-number">${d}</span>
+            <div class="calendar-day-tasks">${dayTasksHtml}</div>
+        </div>`;
+    }
+
+    // Next month's leading days
+    const totalCells = startDayIndex + daysInMonth;
+    const remainingCells = totalCells % 7 === 0 ? 0 : 7 - (totalCells % 7);
+    for (let i = 1; i <= remainingCells; i++) {
+        html += `<div class="calendar-day other-month">
+            <span class="calendar-day-number">${i}</span>
+            <div class="calendar-day-tasks"></div>
+        </div>`;
+    }
+
+    calendarDays.innerHTML = html;
+
+    // Add logic to task clicks in calendar
+    calendarDays.querySelectorAll('.calendar-task').forEach(el => {
+        el.addEventListener('click', (e) => {
+            e.stopPropagation();
+            // Switch back to main view and hilight it
+            const tid = el.dataset.taskId;
+            isCalendarView = false;
+            calendarView.style.display = 'none';
+            mainView.style.display = 'block';
+
+            statusFilter = 'all';
+            currentFolderId = FOLDER_ALL;
+            if (searchInput) searchInput.value = '';
+            applyCalendarTranslations();
+            render();
+
+            setTimeout(() => {
+                const tLi = document.querySelector(`li.task[data-task-id="${tid}"]`);
+                if (tLi) {
+                    tLi.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    tLi.animate([
+                        { backgroundColor: 'var(--accent)', opacity: 0.5 },
+                        { backgroundColor: 'transparent', opacity: 1 }
+                    ], { duration: 1500, easing: 'ease-out' });
+                }
+            }, 100);
+        });
+    });
+}
+
+// Initialize application
 applyTranslations();
 applyTheme();
 render();
