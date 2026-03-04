@@ -18,9 +18,7 @@ const newFolderNameInput = document.getElementById('new-folder-name');
 const addFolderConfirm = document.getElementById('add-folder-confirm');
 const addFolderCancel = document.getElementById('add-folder-cancel');
 const clearDoneBtn = document.getElementById('clear-done-btn');
-const themeToggle = document.getElementById('theme-toggle');
-const themeIconSun = document.getElementById('theme-icon-sun');
-const themeIconMoon = document.getElementById('theme-icon-moon');
+const themeSelect = document.getElementById('theme-select');
 const searchInput = document.getElementById('search-input');
 const sortSelect = document.getElementById('sort-select');
 const progressBarFill = document.getElementById('progress-bar-fill');
@@ -46,199 +44,22 @@ const settingsView = document.getElementById('settings-view');
 const settingsBack = document.getElementById('settings-back');
 let isSettingsView = false;
 
-// Translations Object for Manual Switching
-const translations = {
-    fr: {
-        appTitle: 'Liste de tâches',
-        folders: 'Dossiers',
-        newFolder: '+ Nouveau dossier',
-        folderNamePlaceholder: 'Nom du dossier',
-        create: 'Créer',
-        cancel: 'Annuler',
-        taskPlaceholder: 'Nouvelle tâche...',
-        subtaskPlaceholder: 'Sous-tâche...',
-        dueOptional: 'Date d\'échéance (optionnel)',
-        add: 'Ajouter',
-        clearDone: 'Effacer les tâches terminées',
-        exportData: 'Export',
-        importData: 'Import',
-        searchPlaceholder: 'Rechercher...',
-        priorityCritical: 'Critique',
-        priorityHigh: 'Haute',
-        priorityMedium: 'Moyenne',
-        priorityNormal: 'Normale',
-        priorityLow: 'Basse',
-        priorityNone: 'Aucune priorité',
-        noFolder: 'Sans dossier',
-        noFolderShort: 'Aucun',
-        addToFolder: 'Ajouter au dossier',
-        changeFolder: 'Changer de dossier',
-        editPriority: 'Modifier priorité',
-        priorityCriticalLabel: 'Critique',
-        priorityHighLabel: 'Haute',
-        priorityMediumLabel: 'Moyenne',
-        priorityNormalLabel: 'Normale',
-        priorityLowLabel: 'Basse',
-        priorityNoneLabel: 'Aucune',
-        dueLabel: 'Éch: ',
-        overdueLabel: 'En retard: ',
-        addDue: '+ Date',
-        editDue: 'Modifier date',
-        edit: '✎',
-        delete: '×',
-        reorder: 'Réorganiser',
-        addSubtasks: '+ Sous-tâches',
-        addSubtasksInput: '+ Ajouter une sous-tâche',
-        renameFolder: 'Renommer',
-        deleteFolder: 'Supprimer',
-        summaryRest: 'tâches restantes',
-        summaryDone: 'terminées',
-        summaryTotal: 'total',
-        filterAll: 'Toutes',
-        filterActive: 'En cours',
-        filterDone: 'Terminées',
-        filterTrash: 'Corbeille',
-        sortNewest: 'Plus récentes',
-        sortOldest: 'Plus anciennes',
-        sortAlpha: 'A → Z',
-        sortAlphaDesc: 'Z → A',
-        sortOrder: 'Ordre personnalisé',
-        sortPriority: 'Priorité',
-        sortDue: 'Date d\'échéance (Proche → Loin)',
-        sortDueDesc: 'Date d\'échéance (Loin → Proche)',
-        sortFolderAlpha: 'Dossier (A → Z)',
-        sortFolderAlphaDesc: 'Dossier (Z → A)',
-        emptyDefault: 'Aucune tâche dans ce dossier. Ajoutez-en une !',
-        emptyActive: 'Aucune tâche en cours.',
-        emptyDone: 'Aucune tâche terminée.',
-        emptyTrash: 'Corbeille vide.',
-        emptySearch: 'Aucun résultat trouvé.',
-        importConfirm: 'L\'importation fusionnera les données avec les existantes. Continuer ?',
-        titleTheme: 'Changer le thème',
-        titleToggleDesc: 'Ajouter/Modifier Note',
-        restore: 'Restaurer',
-        deletePermanent: 'Supprimer définitivement',
-        emptyTrash: 'Vider la corbeille',
-        statsOverdue: 'En retard',
-        statsUpcoming: 'À venir',
-        statNone: 'Aucune',
-        toggleSubDesc: 'Ajouter note',
-        addNote: '+ Note',
-        editNote: 'Note',
-        calendar: 'Calendrier',
-        today: 'Aujourd\'hui',
-        dayMon: 'Lun',
-        dayTue: 'Mar',
-        dayWed: 'Mer',
-        dayThu: 'Jeu',
-        dayFri: 'Ven',
-        daySat: 'Sam',
-        daySun: 'Dim',
-        settings: 'Réglages',
-        language: 'Langue',
-        theme: 'Thème',
-        themeLight: 'Mode Clair',
-        themeDark: 'Mode Sombre',
-        data: 'Données',
-        contactMe: 'Contact Me',
-    },
-    en: {
-        appTitle: 'To-Do List',
-        folders: 'Folders',
-        newFolder: '+ New Folder',
-        folderNamePlaceholder: 'Folder Name',
-        create: 'Create',
-        cancel: 'Cancel',
-        taskPlaceholder: 'New task...',
-        subtaskPlaceholder: 'Subtask...',
-        dueOptional: 'Due Date (Optional)',
-        add: 'Add',
-        clearDone: 'Clear Completed Tasks',
-        exportData: 'Export',
-        importData: 'Import',
-        searchPlaceholder: 'Search...',
-        priorityCritical: 'Critical',
-        priorityHigh: 'High',
-        priorityMedium: 'Medium',
-        priorityNormal: 'Normal',
-        priorityLow: 'Low',
-        priorityNone: 'No priority',
-        noFolder: 'No Folder',
-        noFolderShort: 'None',
-        addToFolder: 'Add to Folder',
-        changeFolder: 'Change Folder',
-        editPriority: 'Edit Priority',
-        priorityCriticalLabel: 'Critical',
-        priorityHighLabel: 'High',
-        priorityMediumLabel: 'Medium',
-        priorityNormalLabel: 'Normal',
-        priorityLowLabel: 'Low',
-        priorityNoneLabel: 'None',
-        dueLabel: 'Due: ',
-        overdueLabel: 'Overdue: ',
-        addDue: '+ Date',
-        editDue: 'Edit Date',
-        edit: '✎',
-        delete: '×',
-        reorder: 'Reorder',
-        addSubtasks: '+ Subtasks',
-        addSubtasksInput: '+ Add a subtask',
-        renameFolder: 'Rename',
-        deleteFolder: 'Delete',
-        summaryRest: 'tasks left',
-        summaryDone: 'completed',
-        summaryTotal: 'total',
-        filterAll: 'All',
-        filterActive: 'Active',
-        filterDone: 'Done',
-        filterTrash: 'Trash',
-        sortNewest: 'Newest',
-        sortOldest: 'Oldest',
-        sortAlpha: 'A → Z',
-        sortAlphaDesc: 'Z → A',
-        sortOrder: 'Custom Order',
-        sortPriority: 'Priority',
-        sortDue: 'Due Date (Closest)',
-        sortDueDesc: 'Due Date (Furthest)',
-        sortFolderAlpha: 'Folder (A → Z)',
-        sortFolderAlphaDesc: 'Folder (Z → A)',
-        emptyDefault: 'No tasks in this folder. Add one!',
-        emptyActive: 'No active tasks.',
-        emptyDone: 'No completed tasks.',
-        emptyTrash: 'Trash is empty.',
-        emptySearch: 'No results found.',
-        importConfirm: 'Importing will merge data with existing tasks. Continue?',
-        titleTheme: 'Toggle Theme',
-        titleToggleDesc: 'Add/Edit Note',
-        restore: 'Restore',
-        deletePermanent: 'Delete Permanently',
-        emptyTrash: 'Empty Trash',
-        statsOverdue: 'Overdue',
-        statsUpcoming: 'Upcoming',
-        statNone: 'None',
-        toggleSubDesc: 'Add Note',
-        addNote: '+ Note',
-        editNote: 'Note',
-        calendar: 'Calendar',
-        today: 'Today',
-        dayMon: 'Mon',
-        dayTue: 'Tue',
-        dayWed: 'Wed',
-        dayThu: 'Thu',
-        dayFri: 'Fri',
-        daySat: 'Sat',
-        daySun: 'Sun',
-        settings: 'Settings',
-        language: 'Language',
-        theme: 'Theme',
-        themeLight: 'Light Mode',
-        themeDark: 'Dark Mode',
-        data: 'Data',
-        contactMe: 'Contact Me',
-    }
-};
+let currentLang = localStorage.getItem(STORAGE_LANG) || 'auto';
+let customTranslations = null;
 
-let currentLang = localStorage.getItem(STORAGE_LANG) || 'fr';
+async function loadCustomLanguage(lang) {
+    if (lang === 'auto') {
+        customTranslations = null;
+        return;
+    }
+    try {
+        const res = await fetch(`_locales/${lang}/messages.json`);
+        customTranslations = await res.json();
+    } catch (e) {
+        console.error("Failed to load language", e);
+        customTranslations = null;
+    }
+}
 
 let tasks = loadJSON(STORAGE_TASKS, []);
 let folders = loadJSON(STORAGE_FOLDERS, []);
@@ -272,7 +93,13 @@ function updateFuse() {
 
 // Translation Helper
 function t(key) {
-    return (translations[currentLang] && translations[currentLang][key]) || key;
+    if (customTranslations && customTranslations[key]) {
+        return customTranslations[key].message;
+    }
+    if (typeof chrome !== 'undefined' && chrome.i18n && chrome.i18n.getMessage(key)) {
+        return chrome.i18n.getMessage(key);
+    }
+    return key;
 }
 
 function applyTranslations() {
@@ -281,8 +108,6 @@ function applyTranslations() {
     document.title = t('appTitle');
     const appTitleEl = document.getElementById('app-title');
     if (appTitleEl) appTitleEl.textContent = t('appTitle');
-    const themeBtn = document.getElementById('theme-toggle');
-    if (themeBtn) themeBtn.title = t('titleTheme');
 
     document.getElementById('folders-title').textContent = t('folders');
     document.getElementById('new-folder-name').placeholder = t('folderNamePlaceholder');
@@ -325,9 +150,10 @@ function applyTranslations() {
     if (typeof applyCalendarTranslations === 'function') applyCalendarTranslations();
 }
 
-function setLang(lang) {
+async function setLang(lang) {
     currentLang = lang;
     localStorage.setItem(STORAGE_LANG, lang);
+    await loadCustomLanguage(lang);
     applyTranslations();
     render();
 }
@@ -370,17 +196,26 @@ function saveFolders() {
 }
 
 function getTheme() {
-    return localStorage.getItem(STORAGE_THEME) || 'dark';
+    return localStorage.getItem(STORAGE_THEME) || 'auto';
 }
 function setTheme(theme) {
-    document.documentElement.setAttribute('data-theme', theme === 'dark' ? 'dark' : 'light');
     localStorage.setItem(STORAGE_THEME, theme);
-    if (themeIconSun) themeIconSun.style.display = theme === 'dark' ? 'none' : 'block';
-    if (themeIconMoon) themeIconMoon.style.display = theme === 'dark' ? 'block' : 'none';
+    applyTheme();
 }
 function applyTheme() {
-    setTheme(getTheme());
+    let theme = getTheme();
+    if (themeSelect) themeSelect.value = theme;
+    if (theme === 'auto') {
+        theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    }
+    document.documentElement.setAttribute('data-theme', theme);
 }
+
+window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+    if (getTheme() === 'auto') {
+        applyTheme();
+    }
+});
 
 function getTasksForCurrentFolder() {
     let filtered = [...tasks];
@@ -481,7 +316,8 @@ function formatDue(dueDate) {
     if (!dueDate) return '';
     const d = new Date(dueDate);
     if (isNaN(d.getTime())) return '';
-    return d.toLocaleDateString(currentLang === 'fr' ? 'fr-FR' : 'en-US', { day: 'numeric', month: 'short', year: 'numeric' });
+    const uiLang = currentLang !== 'auto' ? currentLang : ((typeof chrome !== 'undefined' && chrome.i18n) ? chrome.i18n.getUILanguage() : 'en-US');
+    return d.toLocaleDateString(uiLang, { day: 'numeric', month: 'short', year: 'numeric' });
 }
 function isOverdue(dueDate) {
     if (!dueDate) return false;
@@ -1408,7 +1244,12 @@ newFolderNameInput.addEventListener('keydown', (e) => {
 });
 
 clearDoneBtn.addEventListener('click', clearDoneTasks);
-themeToggle.addEventListener('click', () => setTheme(getTheme() === 'dark' ? 'light' : 'dark'));
+
+if (themeSelect) {
+    themeSelect.addEventListener('change', () => {
+        setTheme(themeSelect.value);
+    });
+}
 
 document.querySelectorAll('.filter-btn').forEach(btn => {
     btn.addEventListener('click', () => {
@@ -1423,8 +1264,11 @@ sortSelect.addEventListener('change', () => {
     render();
 });
 searchInput.addEventListener('input', () => render());
+
 if (langSelect) {
-    langSelect.addEventListener('change', () => setLang(langSelect.value));
+    langSelect.addEventListener('change', () => {
+        setLang(langSelect.value);
+    });
 }
 
 // --- Settings Logic ---
@@ -1513,7 +1357,8 @@ function renderCalendar() {
     const month = currentCalendarDate.getMonth();
 
     // Set Header Title (e.g. "Mars 2026")
-    const dtf = new Intl.DateTimeFormat(currentLang === 'fr' ? 'fr-FR' : 'en-US', { month: 'long', year: 'numeric' });
+    const uiLang = currentLang !== 'auto' ? currentLang : ((typeof chrome !== 'undefined' && chrome.i18n) ? chrome.i18n.getUILanguage() : 'en-US');
+    const dtf = new Intl.DateTimeFormat(uiLang, { month: 'long', year: 'numeric' });
     const monthYearStr = dtf.format(new Date(year, month, 1));
     if (calendarMonthYear) calendarMonthYear.textContent = monthYearStr.charAt(0).toUpperCase() + monthYearStr.slice(1);
 
@@ -1623,6 +1468,10 @@ function renderCalendar() {
 }
 
 // Initialize application
-applyTranslations();
-applyTheme();
-render();
+async function initApp() {
+    await loadCustomLanguage(currentLang);
+    applyTranslations();
+    applyTheme();
+    render();
+}
+initApp();

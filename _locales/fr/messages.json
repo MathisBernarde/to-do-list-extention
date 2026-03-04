@@ -1,26 +1,15 @@
 {
     "appTitle": {
-        "message": "Liste de tâches",
-        "description": "Le titre de l'application"
+        "message": "Liste de tâches"
     },
     "appDescription": {
-        "message": "Une extension de liste de tâches simple et efficace.",
-        "description": "Description de l'extension"
-    },
-    "titleTheme": {
-        "message": "Changer le thème"
-    },
-    "summaryRest": {
-        "message": "restantes"
-    },
-    "summaryDone": {
-        "message": "terminées"
-    },
-    "summaryTotal": {
-        "message": "au total"
+        "message": "Une extension de liste de tâches simple et efficace."
     },
     "folders": {
         "message": "Dossiers"
+    },
+    "newFolder": {
+        "message": "+ Nouveau dossier"
     },
     "folderNamePlaceholder": {
         "message": "Nom du dossier"
@@ -31,23 +20,11 @@
     "cancel": {
         "message": "Annuler"
     },
-    "newFolder": {
-        "message": "+ Nouveau dossier"
-    },
     "taskPlaceholder": {
         "message": "Nouvelle tâche..."
     },
-    "noFolder": {
-        "message": "Sans dossier"
-    },
-    "priorityNormal": {
-        "message": "Priorité normale"
-    },
-    "priorityHigh": {
-        "message": "Haute"
-    },
-    "priorityLow": {
-        "message": "Basse"
+    "subtaskPlaceholder": {
+        "message": "Sous-tâche..."
     },
     "dueOptional": {
         "message": "Date d'échéance (optionnel)"
@@ -58,8 +35,107 @@
     "clearDone": {
         "message": "Effacer les tâches terminées"
     },
+    "exportData": {
+        "message": "Export"
+    },
+    "importData": {
+        "message": "Import"
+    },
     "searchPlaceholder": {
-        "message": "Rechercher dans les tâches..."
+        "message": "Rechercher..."
+    },
+    "priorityCritical": {
+        "message": "Critique"
+    },
+    "priorityHigh": {
+        "message": "Haute"
+    },
+    "priorityMedium": {
+        "message": "Moyenne"
+    },
+    "priorityNormal": {
+        "message": "Normale"
+    },
+    "priorityLow": {
+        "message": "Basse"
+    },
+    "priorityNone": {
+        "message": "Aucune priorité"
+    },
+    "noFolder": {
+        "message": "Sans dossier"
+    },
+    "noFolderShort": {
+        "message": "Aucun"
+    },
+    "addToFolder": {
+        "message": "Ajouter au dossier"
+    },
+    "changeFolder": {
+        "message": "Changer de dossier"
+    },
+    "editPriority": {
+        "message": "Modifier priorité"
+    },
+    "priorityCriticalLabel": {
+        "message": "Critique"
+    },
+    "priorityHighLabel": {
+        "message": "Haute"
+    },
+    "priorityMediumLabel": {
+        "message": "Moyenne"
+    },
+    "priorityNormalLabel": {
+        "message": "Normale"
+    },
+    "priorityLowLabel": {
+        "message": "Basse"
+    },
+    "priorityNoneLabel": {
+        "message": "Aucune"
+    },
+    "dueLabel": {
+        "message": "Éch: "
+    },
+    "overdueLabel": {
+        "message": "En retard: "
+    },
+    "addDue": {
+        "message": "+ Date"
+    },
+    "editDue": {
+        "message": "Modifier date"
+    },
+    "edit": {
+        "message": "✎"
+    },
+    "delete": {
+        "message": "×"
+    },
+    "reorder": {
+        "message": "Réorganiser"
+    },
+    "addSubtasks": {
+        "message": "+ Sous-tâches"
+    },
+    "addSubtasksInput": {
+        "message": "+ Ajouter une sous-tâche"
+    },
+    "renameFolder": {
+        "message": "Renommer"
+    },
+    "deleteFolder": {
+        "message": "Supprimer"
+    },
+    "summaryRest": {
+        "message": "tâches restantes"
+    },
+    "summaryDone": {
+        "message": "terminées"
+    },
+    "summaryTotal": {
+        "message": "total"
     },
     "filterAll": {
         "message": "Toutes"
@@ -69,6 +145,9 @@
     },
     "filterDone": {
         "message": "Terminées"
+    },
+    "filterTrash": {
+        "message": "Corbeille"
     },
     "sortNewest": {
         "message": "Plus récentes"
@@ -85,79 +164,124 @@
     "sortOrder": {
         "message": "Ordre personnalisé"
     },
-    "emptyDefault": {
-        "message": "Aucune tâche ici. Ajoutez-en une ci-dessus."
+    "sortPriority": {
+        "message": "Priorité"
     },
-    "emptyDone": {
-        "message": "Aucune tâche terminée."
+    "sortDue": {
+        "message": "Date d'échéance (Proche → Loin)"
+    },
+    "sortDueDesc": {
+        "message": "Date d'échéance (Loin → Proche)"
+    },
+    "sortFolderAlpha": {
+        "message": "Dossier (A → Z)"
+    },
+    "sortFolderAlphaDesc": {
+        "message": "Dossier (Z → A)"
+    },
+    "emptyDefault": {
+        "message": "Aucune tâche dans ce dossier. Ajoutez-en une !"
     },
     "emptyActive": {
         "message": "Aucune tâche en cours."
     },
+    "emptyDone": {
+        "message": "Aucune tâche terminée."
+    },
+    "emptyTrashTxt": {
+        "message": "Corbeille vide."
+    },
     "emptySearch": {
-        "message": "Aucun résultat pour cette recherche."
-    },
-    "changeFolder": {
-        "message": "Changer de dossier"
-    },
-    "addToFolder": {
-        "message": "Ajouter à un dossier"
-    },
-    "noFolderShort": {
-        "message": "Sans dossier"
-    },
-    "editPriority": {
-        "message": "Modifier la priorité"
-    },
-    "editDue": {
-        "message": "Modifier la date d'échéance"
-    },
-    "addDue": {
-        "message": "+ Échéance"
-    },
-    "subtaskPlaceholder": {
-        "message": "Sous-tâche..."
-    },
-    "delete": {
-        "message": "Supprimer"
-    },
-    "reorder": {
-        "message": "Réordonner"
-    },
-    "edit": {
-        "message": "Modifier"
-    },
-    "renameFolder": {
-        "message": "Renommer"
-    },
-    "deleteFolder": {
-        "message": "Supprimer le dossier"
-    },
-    "dueLabel": {
-        "message": "Échéance "
-    },
-    "overdueLabel": {
-        "message": "En retard "
-    },
-    "priorityLowLabel": {
-        "message": "Basse"
-    },
-    "priorityNormalLabel": {
-        "message": "Normale"
-    },
-    "priorityHighLabel": {
-        "message": "Haute"
-    },
-    "addSubtasks": {
-        "message": "+ Sous-tâches"
-    },
-    "exportData": {
-        "message": "Exporter"
-    },
-    "importData": {
-        "message": "Importer"
+        "message": "Aucun résultat trouvé."
     },
     "importConfirm": {
-        "message": "Cela va fusionner les tâches importées avec les vôtres. Continuer ?"
+        "message": "L'importation fusionnera les données avec les existantes. Continuer ?"
+    },
+    "titleTheme": {
+        "message": "Changer le thème"
+    },
+    "titleToggleDesc": {
+        "message": "Ajouter/Modifier Note"
+    },
+    "restore": {
+        "message": "Restaurer"
+    },
+    "deletePermanent": {
+        "message": "Supprimer définitivement"
+    },
+    "emptyTrashBtnText": {
+        "message": "Vider la corbeille"
+    },
+    "statsOverdue": {
+        "message": "En retard"
+    },
+    "statsUpcoming": {
+        "message": "À venir"
+    },
+    "statNone": {
+        "message": "Aucune"
+    },
+    "toggleSubDesc": {
+        "message": "Ajouter note"
+    },
+    "addNote": {
+        "message": "+ Note"
+    },
+    "editNote": {
+        "message": "Note"
+    },
+    "calendar": {
+        "message": "Calendrier"
+    },
+    "today": {
+        "message": "Aujourd'hui"
+    },
+    "dayMon": {
+        "message": "Lun"
+    },
+    "dayTue": {
+        "message": "Mar"
+    },
+    "dayWed": {
+        "message": "Mer"
+    },
+    "dayThu": {
+        "message": "Jeu"
+    },
+    "dayFri": {
+        "message": "Ven"
+    },
+    "daySat": {
+        "message": "Sam"
+    },
+    "daySun": {
+        "message": "Dim"
+    },
+    "settings": {
+        "message": "Réglages"
+    },
+    "language": {
+        "message": "Langue"
+    },
+    "theme": {
+        "message": "Thème"
+    },
+    "themeLight": {
+        "message": "Mode Clair"
+    },
+    "themeDark": {
+        "message": "Mode Sombre"
+    },
+    "data": {
+        "message": "Données"
+    },
+    "contactMe": {
+        "message": "Contact Me"
+    },
+    "langAuto": {
+        "message": "Langue du système"
+    },
+    "themeAuto": {
+        "message": "Thème du système"
     }
 }

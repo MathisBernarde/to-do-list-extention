@@ -1,0 +1,287 @@
+{
+    "appTitle": {
+        "message": "Lista de Tareas"
+    },
+    "appDescription": {
+        "message": "Una extensión de lista de tareas simple y eficaz."
+    },
+    "folders": {
+        "message": "Carpetas"
+    },
+    "newFolder": {
+        "message": "+ Nueva Carpeta"
+    },
+    "folderNamePlaceholder": {
+        "message": "Nombre de la Carpeta"
+    },
+    "create": {
+        "message": "Crear"
+    },
+    "cancel": {
+        "message": "Cancelar"
+    },
+    "taskPlaceholder": {
+        "message": "Nueva tarea..."
+    },
+    "subtaskPlaceholder": {
+        "message": "Subtarea..."
+    },
+    "dueOptional": {
+        "message": "Fecha límite (Opcional)"
+    },
+    "add": {
+        "message": "Añadir"
+    },
+    "clearDone": {
+        "message": "Borrar Completadas"
+    },
+    "exportData": {
+        "message": "Exportar"
+    },
+    "importData": {
+        "message": "Importar"
+    },
+    "searchPlaceholder": {
+        "message": "Buscar..."
+    },
+    "priorityCritical": {
+        "message": "Crítica"
+    },
+    "priorityHigh": {
+        "message": "Alta"
+    },
+    "priorityMedium": {
+        "message": "Media"
+    },
+    "priorityNormal": {
+        "message": "Normal"
+    },
+    "priorityLow": {
+        "message": "Baja"
+    },
+    "priorityNone": {
+        "message": "Sin prioridad"
+    },
+    "noFolder": {
+        "message": "Sin Carpeta"
+    },
+    "noFolderShort": {
+        "message": "Ninguna"
+    },
+    "addToFolder": {
+        "message": "Añadir a Carpeta"
+    },
+    "changeFolder": {
+        "message": "Cambiar Carpeta"
+    },
+    "editPriority": {
+        "message": "Editar Prioridad"
+    },
+    "priorityCriticalLabel": {
+        "message": "Crítica"
+    },
+    "priorityHighLabel": {
+        "message": "Alta"
+    },
+    "priorityMediumLabel": {
+        "message": "Media"
+    },
+    "priorityNormalLabel": {
+        "message": "Normal"
+    },
+    "priorityLowLabel": {
+        "message": "Baja"
+    },
+    "priorityNoneLabel": {
+        "message": "Ninguna"
+    },
+    "dueLabel": {
+        "message": "Vence: "
+    },
+    "overdueLabel": {
+        "message": "Atrasado: "
+    },
+    "addDue": {
+        "message": "+ Fecha"
+    },
+    "editDue": {
+        "message": "Editar Fecha"
+    },
+    "edit": {
+        "message": "✎"
+    },
+    "delete": {
+        "message": "×"
+    },
+    "reorder": {
+        "message": "Reordenar"
+    },
+    "addSubtasks": {
+        "message": "+ Subtareas"
+    },
+    "addSubtasksInput": {
+        "message": "+ Añadir subtarea"
+    },
+    "renameFolder": {
+        "message": "Renombrar"
+    },
+    "deleteFolder": {
+        "message": "Eliminar"
+    },
+    "summaryRest": {
+        "message": "tareas restantes"
+    },
+    "summaryDone": {
+        "message": "completadas"
+    },
+    "summaryTotal": {
+        "message": "total"
+    },
+    "filterAll": {
+        "message": "Todas"
+    },
+    "filterActive": {
+        "message": "Activas"
+    },
+    "filterDone": {
+        "message": "Completadas"
+    },
+    "filterTrash": {
+        "message": "Papelera"
+    },
+    "sortNewest": {
+        "message": "Más recientes"
+    },
+    "sortOldest": {
+        "message": "Más antiguas"
+    },
+    "sortAlpha": {
+        "message": "A → Z"
+    },
+    "sortAlphaDesc": {
+        "message": "Z → A"
+    },
+    "sortOrder": {
+        "message": "Orden Personalizado"
+    },
+    "sortPriority": {
+        "message": "Prioridad"
+    },
+    "sortDue": {
+        "message": "Fecha límite (Cerca → Lejos)"
+    },
+    "sortDueDesc": {
+        "message": "Fecha límite (Lejos → Cerca)"
+    },
+    "sortFolderAlpha": {
+        "message": "Carpeta (A → Z)"
+    },
+    "sortFolderAlphaDesc": {
+        "message": "Carpeta (Z → A)"
+    },
+    "emptyDefault": {
+        "message": "No hay tareas en esta carpeta. ¡Añade una!"
+    },
+    "emptyActive": {
+        "message": "No hay tareas activas."
+    },
+    "emptyDone": {
+        "message": "No hay tareas completadas."
+    },
+    "emptyTrashTxt": {
+        "message": "La papelera está vacía."
+    },
+    "emptySearch": {
+        "message": "No se encontraron resultados."
+    },
+    "importConfirm": {
+        "message": "Importar fusionará los datos con las tareas existentes. ¿Continuar?"
+    },
+    "titleTheme": {
+        "message": "Cambiar Tema"
+    },
+    "titleToggleDesc": {
+        "message": "Añadir/Editar Nota"
+    },
+    "restore": {
+        "message": "Restaurar"
+    },
+    "deletePermanent": {
+        "message": "Eliminar Definitivamente"
+    },
+    "emptyTrashBtnText": {
+        "message": "Vaciar Papelera"
+    },
+    "statsOverdue": {
+        "message": "Atrasadas"
+    },
+    "statsUpcoming": {
+        "message": "Próximas"
+    },
+    "statNone": {
+        "message": "Ninguna"
+    },
+    "toggleSubDesc": {
+        "message": "Añadir Nota"
+    },
+    "addNote": {
+        "message": "+ Nota"
+    },
+    "editNote": {
+        "message": "Nota"
+    },
+    "calendar": {
+        "message": "Calendario"
+    },
+    "today": {
+        "message": "Hoy"
+    },
+    "dayMon": {
+        "message": "Lun"
+    },
+    "dayTue": {
+        "message": "Mar"
+    },
+    "dayWed": {
+        "message": "Mié"
+    },
+    "dayThu": {
+        "message": "Jue"
+    },
+    "dayFri": {
+        "message": "Vie"
+    },
+    "daySat": {
+        "message": "Sáb"
+    },
+    "daySun": {
+        "message": "Dom"
+    },
+    "settings": {
+        "message": "Ajustes"
+    },
+    "language": {
+        "message": "Idioma"
+    },
+    "theme": {
+        "message": "Tema"
+    },
+    "themeLight": {
+        "message": "Modo Claro"
+    },
+    "themeDark": {
+        "message": "Modo Oscuro"
+    },
+    "data": {
+        "message": "Datos"
+    },
+    "contactMe": {
+        "message": "Contáctame"
+    },
+    "langAuto": {
+        "message": "Idioma del Sistema"
+    },
+    "themeAuto": {
+        "message": "Tema del Sistema"
+    }
+}

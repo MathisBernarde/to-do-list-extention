@@ -1,29 +1,18 @@
 {
     "appTitle": {
-        "message": "To-Do List",
-        "description": "The title of the application"
+        "message": "To-Do List"
     },
     "appDescription": {
-        "message": "A simple and efficient To-Do List extension.",
-        "description": "Description of the extension"
-    },
-    "titleTheme": {
-        "message": "Change theme"
-    },
-    "summaryRest": {
-        "message": "remaining"
-    },
-    "summaryDone": {
-        "message": "done"
-    },
-    "summaryTotal": {
-        "message": "total"
+        "message": "A simple and effective To-Do List extension."
     },
     "folders": {
         "message": "Folders"
     },
+    "newFolder": {
+        "message": "+ New Folder"
+    },
     "folderNamePlaceholder": {
-        "message": "Folder name"
+        "message": "Folder Name"
     },
     "create": {
         "message": "Create"
@@ -31,50 +20,140 @@
     "cancel": {
         "message": "Cancel"
     },
-    "newFolder": {
-        "message": "+ New folder"
-    },
     "taskPlaceholder": {
         "message": "New task..."
     },
-    "noFolder": {
-        "message": "No folder"
-    },
-    "priorityNormal": {
-        "message": "Normal priority"
-    },
-    "priorityHigh": {
-        "message": "High"
-    },
-    "priorityLow": {
-        "message": "Low"
+    "subtaskPlaceholder": {
+        "message": "Subtask..."
     },
     "dueOptional": {
-        "message": "Due date (optional)"
+        "message": "Due Date (Optional)"
     },
     "add": {
         "message": "Add"
     },
     "clearDone": {
-        "message": "Clear completed tasks"
+        "message": "Clear Completed Tasks"
+    },
+    "exportData": {
+        "message": "Export"
+    },
+    "importData": {
+        "message": "Import"
     },
     "searchPlaceholder": {
-        "message": "Search tasks..."
+        "message": "Search..."
+    },
+    "priorityCritical": {
+        "message": "Critical"
+    },
+    "priorityHigh": {
+        "message": "High"
+    },
+    "priorityMedium": {
+        "message": "Medium"
+    },
+    "priorityNormal": {
+        "message": "Normal"
+    },
+    "priorityLow": {
+        "message": "Low"
+    },
+    "priorityNone": {
+        "message": "No priority"
+    },
+    "noFolder": {
+        "message": "No Folder"
+    },
+    "noFolderShort": {
+        "message": "None"
+    },
+    "addToFolder": {
+        "message": "Add to Folder"
+    },
+    "changeFolder": {
+        "message": "Change Folder"
+    },
+    "editPriority": {
+        "message": "Edit Priority"
+    },
+    "priorityCriticalLabel": {
+        "message": "Critical"
+    },
+    "priorityHighLabel": {
+        "message": "High"
+    },
+    "priorityMediumLabel": {
+        "message": "Medium"
+    },
+    "priorityNormalLabel": {
+        "message": "Normal"
+    },
+    "priorityLowLabel": {
+        "message": "Low"
+    },
+    "priorityNoneLabel": {
+        "message": "None"
+    },
+    "dueLabel": {
+        "message": "Due: "
+    },
+    "overdueLabel": {
+        "message": "Overdue: "
+    },
+    "addDue": {
+        "message": "+ Date"
+    },
+    "editDue": {
+        "message": "Edit Date"
+    },
+    "edit": {
+        "message": "✎"
+    },
+    "delete": {
+        "message": "×"
+    },
+    "reorder": {
+        "message": "Reorder"
+    },
+    "addSubtasks": {
+        "message": "+ Subtasks"
+    },
+    "addSubtasksInput": {
+        "message": "+ Add a subtask"
+    },
+    "renameFolder": {
+        "message": "Rename"
+    },
+    "deleteFolder": {
+        "message": "Delete"
+    },
+    "summaryRest": {
+        "message": "tasks left"
+    },
+    "summaryDone": {
+        "message": "completed"
+    },
+    "summaryTotal": {
+        "message": "total"
     },
     "filterAll": {
         "message": "All"
     },
     "filterActive": {
-        "message": "In progress"
+        "message": "Active"
     },
     "filterDone": {
-        "message": "Completed"
+        "message": "Done"
+    },
+    "filterTrash": {
+        "message": "Trash"
     },
     "sortNewest": {
-        "message": "Newest first"
+        "message": "Newest"
     },
     "sortOldest": {
-        "message": "Oldest first"
+        "message": "Oldest"
     },
     "sortAlpha": {
         "message": "A → Z"
@@ -83,81 +162,126 @@
         "message": "Z → A"
     },
     "sortOrder": {
-        "message": "Custom order"
+        "message": "Custom Order"
+    },
+    "sortPriority": {
+        "message": "Priority"
+    },
+    "sortDue": {
+        "message": "Due Date (Closest)"
+    },
+    "sortDueDesc": {
+        "message": "Due Date (Furthest)"
+    },
+    "sortFolderAlpha": {
+        "message": "Folder (A → Z)"
+    },
+    "sortFolderAlphaDesc": {
+        "message": "Folder (Z → A)"
     },
     "emptyDefault": {
-        "message": "No tasks here. Add one above."
+        "message": "No tasks in this folder. Add one!"
+    },
+    "emptyActive": {
+        "message": "No active tasks."
     },
     "emptyDone": {
         "message": "No completed tasks."
     },
-    "emptyActive": {
-        "message": "No tasks in progress."
+    "emptyTrashTxt": {
+        "message": "Trash is empty."
     },
     "emptySearch": {
-        "message": "No results for this search."
-    },
-    "changeFolder": {
-        "message": "Change folder"
-    },
-    "addToFolder": {
-        "message": "Add to folder"
-    },
-    "noFolderShort": {
-        "message": "No folder"
-    },
-    "editPriority": {
-        "message": "Change priority"
-    },
-    "editDue": {
-        "message": "Change due date"
-    },
-    "addDue": {
-        "message": "+ Due date"
-    },
-    "subtaskPlaceholder": {
-        "message": "Subtask..."
-    },
-    "delete": {
-        "message": "Delete"
-    },
-    "reorder": {
-        "message": "Reorder"
-    },
-    "edit": {
-        "message": "Edit"
-    },
-    "renameFolder": {
-        "message": "Rename"
-    },
-    "deleteFolder": {
-        "message": "Delete folder"
-    },
-    "dueLabel": {
-        "message": "Due "
-    },
-    "overdueLabel": {
-        "message": "Overdue "
-    },
-    "priorityLowLabel": {
-        "message": "Low"
-    },
-    "priorityNormalLabel": {
-        "message": "Normal"
-    },
-    "priorityHighLabel": {
-        "message": "High"
-    },
-    "addSubtasks": {
-        "message": "+ Subtasks"
-    },
-    "exportData": {
-        "message": "Export"
-    },
-    "importData": {
-        "message": "Import"
+        "message": "No results found."
     },
     "importConfirm": {
-        "message": "This will merge imported tasks with yours. Continue?"
+        "message": "Importing will merge data with existing tasks. Continue?"
+    },
+    "titleTheme": {
+        "message": "Toggle Theme"
+    },
+    "titleToggleDesc": {
+        "message": "Add/Edit Note"
+    },
+    "restore": {
+        "message": "Restore"
+    },
+    "deletePermanent": {
+        "message": "Delete Permanently"
+    },
+    "emptyTrashBtnText": {
+        "message": "Empty Trash"
+    },
+    "statsOverdue": {
+        "message": "Overdue"
+    },
+    "statsUpcoming": {
+        "message": "Upcoming"
+    },
+    "statNone": {
+        "message": "None"
+    },
+    "toggleSubDesc": {
+        "message": "Add Note"
+    },
+    "addNote": {
+        "message": "+ Note"
+    },
+    "editNote": {
+        "message": "Note"
+    },
+    "calendar": {
+        "message": "Calendar"
+    },
+    "today": {
+        "message": "Today"
+    },
+    "dayMon": {
+        "message": "Mon"
+    },
+    "dayTue": {
+        "message": "Tue"
+    },
+    "dayWed": {
+        "message": "Wed"
+    },
+    "dayThu": {
+        "message": "Thu"
+    },
+    "dayFri": {
+        "message": "Fri"
+    },
+    "daySat": {
+        "message": "Sat"
+    },
+    "daySun": {
+        "message": "Sun"
+    },
+    "settings": {
+        "message": "Settings"
+    },
+    "language": {
+        "message": "Language"
+    },
+    "theme": {
+        "message": "Theme"
+    },
+    "themeLight": {
+        "message": "Light Mode"
+    },
+    "themeDark": {
+        "message": "Dark Mode"
+    },
+    "data": {
+        "message": "Data"
+    },
+    "contactMe": {
+        "message": "Contact Me"
+    },
+    "langAuto": {
+        "message": "Browser Default"
+    },
+    "themeAuto": {
+        "message": "System Theme"
     }
 }

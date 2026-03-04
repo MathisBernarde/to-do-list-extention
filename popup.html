@@ -86,8 +86,8 @@
                     <button type="button" class="btn btn-danger-ghost" id="clear-done-btn" data-i18n="clearDone">Effacer
                         les
                         tâches terminées</button>
-                    <button type="button" class="btn btn-danger-ghost" id="empty-trash-btn" data-i18n="emptyTrash"
-                        style="display: none;">Vider la corbeille</button>
+                    <button type="button" class="btn btn-danger-ghost" id="empty-trash-btn"
+                        data-i18n="emptyTrashBtnText" style="display: none;">Vider la corbeille</button>
                 </div>
             </section>
 
@@ -160,19 +160,22 @@
                 <label data-i18n="language" class="settings-label">Langue</label>
                 <select id="lang-select" class="lang-select" title="Langue"
                     style="width: 100%; border: 1px solid var(--border); padding: 0.5rem; background: var(--bg-secondary); color: var(--text-primary); border-radius: 4px;">
+                    <option value="auto" data-i18n="langAuto">Langue du système</option>
                     <option value="fr">Français (FR)</option>
                     <option value="en">English (EN)</option>
+                    <option value="es">Español (ES)</option>
+                    <option value="de">Deutsch (DE)</option>
                 </select>
             </div>
 
             <div class="settings-group" style="margin-top: 20px;">
                 <label data-i18n="theme" class="settings-label">Thème</label>
-                <button type="button" class="btn btn-ghost" id="theme-toggle" data-i18n-title="titleTheme"
-                    style="width: 100%; display: flex; justify-content: center; gap: 8px; border: 1px solid var(--border);">
-                    <span id="theme-icon-sun" style="display: none;">☀️ <span data-i18n="themeLight">Mode
-                            Clair</span></span>
-                    <span id="theme-icon-moon">🌙 <span data-i18n="themeDark">Mode Sombre</span></span>
-                </button>
+                <select id="theme-select" class="theme-select" title="Thème"
+                    style="width: 100%; border: 1px solid var(--border); padding: 0.5rem; background: var(--bg-secondary); color: var(--text-primary); border-radius: 4px;">
+                    <option value="auto" data-i18n="themeAuto">Thème du système</option>
+                    <option value="light" data-i18n="themeLight">Mode Clair</option>
+                    <option value="dark" data-i18n="themeDark">Mode Sombre</option>
+                </select>
             </div>
 
             <div class="settings-group" style="margin-top: 20px;">

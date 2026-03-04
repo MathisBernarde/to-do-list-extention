@@ -1,0 +1,287 @@
+{
+    "appTitle": {
+        "message": "To-Do Liste"
+    },
+    "appDescription": {
+        "message": "Eine einfache und effektive To-Do-Listen-Erweiterung."
+    },
+    "folders": {
+        "message": "Ordner"
+    },
+    "newFolder": {
+        "message": "+ Neuer Ordner"
+    },
+    "folderNamePlaceholder": {
+        "message": "Ordnername"
+    },
+    "create": {
+        "message": "Erstellen"
+    },
+    "cancel": {
+        "message": "Abbrechen"
+    },
+    "taskPlaceholder": {
+        "message": "Neue Aufgabe..."
+    },
+    "subtaskPlaceholder": {
+        "message": "Unteraufgabe..."
+    },
+    "dueOptional": {
+        "message": "Fälligkeitsdatum (Optional)"
+    },
+    "add": {
+        "message": "Hinzufügen"
+    },
+    "clearDone": {
+        "message": "Erledigte löschen"
+    },
+    "exportData": {
+        "message": "Exportieren"
+    },
+    "importData": {
+        "message": "Importieren"
+    },
+    "searchPlaceholder": {
+        "message": "Suchen..."
+    },
+    "priorityCritical": {
+        "message": "Kritisch"
+    },
+    "priorityHigh": {
+        "message": "Hoch"
+    },
+    "priorityMedium": {
+        "message": "Mittel"
+    },
+    "priorityNormal": {
+        "message": "Normal"
+    },
+    "priorityLow": {
+        "message": "Niedrig"
+    },
+    "priorityNone": {
+        "message": "Keine Priorität"
+    },
+    "noFolder": {
+        "message": "Kein Ordner"
+    },
+    "noFolderShort": {
+        "message": "Keiner"
+    },
+    "addToFolder": {
+        "message": "Zu Ordner hinzufügen"
+    },
+    "changeFolder": {
+        "message": "Ordner ändern"
+    },
+    "editPriority": {
+        "message": "Priorität bearbeiten"
+    },
+    "priorityCriticalLabel": {
+        "message": "Kritisch"
+    },
+    "priorityHighLabel": {
+        "message": "Hoch"
+    },
+    "priorityMediumLabel": {
+        "message": "Mittel"
+    },
+    "priorityNormalLabel": {
+        "message": "Normal"
+    },
+    "priorityLowLabel": {
+        "message": "Niedrig"
+    },
+    "priorityNoneLabel": {
+        "message": "Keine"
+    },
+    "dueLabel": {
+        "message": "Fällig: "
+    },
+    "overdueLabel": {
+        "message": "Überfällig: "
+    },
+    "addDue": {
+        "message": "+ Datum"
+    },
+    "editDue": {
+        "message": "Datum bearbeiten"
+    },
+    "edit": {
+        "message": "✎"
+    },
+    "delete": {
+        "message": "×"
+    },
+    "reorder": {
+        "message": "Neu anordnen"
+    },
+    "addSubtasks": {
+        "message": "+ Unteraufgaben"
+    },
+    "addSubtasksInput": {
+        "message": "+ Unteraufgabe hinzufügen"
+    },
+    "renameFolder": {
+        "message": "Umbenennen"
+    },
+    "deleteFolder": {
+        "message": "Löschen"
+    },
+    "summaryRest": {
+        "message": "Aufgaben verbleibend"
+    },
+    "summaryDone": {
+        "message": "erledigt"
+    },
+    "summaryTotal": {
+        "message": "gesamt"
+    },
+    "filterAll": {
+        "message": "Alle"
+    },
+    "filterActive": {
+        "message": "Aktiv"
+    },
+    "filterDone": {
+        "message": "Erledigt"
+    },
+    "filterTrash": {
+        "message": "Papierkorb"
+    },
+    "sortNewest": {
+        "message": "Neueste"
+    },
+    "sortOldest": {
+        "message": "Älteste"
+    },
+    "sortAlpha": {
+        "message": "A → Z"
+    },
+    "sortAlphaDesc": {
+        "message": "Z → A"
+    },
+    "sortOrder": {
+        "message": "Benutzerdefinierte Reihenfolge"
+    },
+    "sortPriority": {
+        "message": "Priorität"
+    },
+    "sortDue": {
+        "message": "Fälligkeitsdatum (Nah)"
+    },
+    "sortDueDesc": {
+        "message": "Fälligkeitsdatum (Fern)"
+    },
+    "sortFolderAlpha": {
+        "message": "Ordner (A → Z)"
+    },
+    "sortFolderAlphaDesc": {
+        "message": "Ordner (Z → A)"
+    },
+    "emptyDefault": {
+        "message": "Keine Aufgaben in diesem Ordner. Füge eine! hinzu"
+    },
+    "emptyActive": {
+        "message": "Keine aktiven Aufgaben."
+    },
+    "emptyDone": {
+        "message": "Keine erledigten Aufgaben."
+    },
+    "emptyTrashTxt": {
+        "message": "Papierkorb ist leer."
+    },
+    "emptySearch": {
+        "message": "Keine Ergebnisse gefunden."
+    },
+    "importConfirm": {
+        "message": "Beim Importieren werden die Daten mit vorhandenen Aufgaben zusammengeführt. Fortfahren?"
+    },
+    "titleTheme": {
+        "message": "Design umschalten"
+    },
+    "titleToggleDesc": {
+        "message": "Notiz hinzufügen/bearbeiten"
+    },
+    "restore": {
+        "message": "Wiederherstellen"
+    },
+    "deletePermanent": {
+        "message": "Dauerhaft löschen"
+    },
+    "emptyTrashBtnText": {
+        "message": "Papierkorb leeren"
+    },
+    "statsOverdue": {
+        "message": "Überfällig"
+    },
+    "statsUpcoming": {
+        "message": "Bevorstehend"
+    },
+    "statNone": {
+        "message": "Keine"
+    },
+    "toggleSubDesc": {
+        "message": "Notiz hinzufügen"
+    },
+    "addNote": {
+        "message": "+ Notiz"
+    },
+    "editNote": {
+        "message": "Notiz"
+    },
+    "calendar": {
+        "message": "Kalender"
+    },
+    "today": {
+        "message": "Heute"
+    },
+    "dayMon": {
+        "message": "Mo"
+    },
+    "dayTue": {
+        "message": "Di"
+    },
+    "dayWed": {
+        "message": "Mi"
+    },
+    "dayThu": {
+        "message": "Do"
+    },
+    "dayFri": {
+        "message": "Fr"
+    },
+    "daySat": {
+        "message": "Sa"
+    },
+    "daySun": {
+        "message": "So"
+    },
+    "settings": {
+        "message": "Einstellungen"
+    },
+    "language": {
+        "message": "Sprache"
+    },
+    "theme": {
+        "message": "Design"
+    },
+    "themeLight": {
+        "message": "Heller Modus"
+    },
+    "themeDark": {
+        "message": "Dunkler Modus"
+    },
+    "data": {
+        "message": "Daten"
+    },
+    "contactMe": {
+        "message": "Kontakt"
+    },
+    "langAuto": {
+        "message": "Systemsprache"
+    },
+    "themeAuto": {
+        "message": "System Design"
+    }
+}
